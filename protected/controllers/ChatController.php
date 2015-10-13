@@ -4,34 +4,46 @@ class ChatController extends Controller
 {
 	public function actionIndex()
 	{
-		$minid = intval(Yii::app()->request->getParam('min',0));
+		$minid = intval(Yii::app()->request->getParam('minid',0));
+		$to_user = intval(Yii::app()->request->getParam('to',0));
 		$params = array(
 			'other' => array(
 				'page' => intval(Yii::app()->request->getParam('page',0)),
 				'size' => intval(Yii::app()->request->getParam('size',10)),
-				'order' => Yii::app()->request->getParam('order','message_id'),
+				'order' => Yii::app()->request->getParam('order','chat_id'),
 			),
-			'>'=>array('message_id'=> $minid,'message_created'=>time()-604800),
-			'like' => array('message_text'=>Yii::app()->request->getParam('q','')),
+			'>'=>array('chat_id'=>$minid ,'chat_created'=>time()-604800),
+			'like' => array('chat_text'=>Yii::app()->request->getParam('q','')),
 		);
-		switch(Yii::app()->user->getState('user')->role_id)
+		$condition = ' and ( user_id='.intval(Yii::app()->user->id).' or chat_user_id='.intval(Yii::app()->user->id).') ';
+
+		if($to_user>0  && Yii::app()->user->getState('user')->user_is_service)
 		{
-			case 1://管理员
-			case 2://信息管理
-			case 3://会员管理
-				break;
-			case 4://会员
-				$params['message_is_exp'] = array(0);
-				break;
-			case 5://体验
-				$params['message_is_exp'] = 1;
-				break;
+			$condition .= ' and chat_user_id='.$to_user;
 		}
 
-
-		$this->response(0,Message::model()->lists($params));
+		$this->response(0,Chat::model()->lists($params,$condition));
 	}
 
+	/**
+	 * 发给客服的用户列表
+	 *
+	 * @return mixed json
+	 */
+	public function actionUser()
+	{
+		if(!Yii::app()->user->getState('user')->user_is_service)
+			$this->response(1000);
+
+		$params = array(
+			'chat_user_id'=>Yii::app()->user->id,
+			'other' => array(
+				'group' => Yii::app()->request->getParam('group','user_id'),
+			),
+		);
+
+		$this->response(0,Chat::model()->all($params));
+	}
 
 	/**
 	 * 发布信息
@@ -43,10 +55,10 @@ class ChatController extends Controller
 	 */
 	public function actionCreate()
 	{
-		if(!in_array(Yii::app()->user->getState('user')->role_id ,array(1,2)))
+		if(Yii::app()->user->getState('user')->role_id==1)
 			$this->response(1000);
 		$params = array(
-			'exp' => intval(Yii::app()->request->getParam('exp',0)),
+			'chat_user_id' => intval(Yii::app()->request->getParam('to',0)),
 			'text' => Yii::app()->request->getParam('text',''),
 			'time' => Yii::app()->request->getParam('time',date('Y-m-d H:i:s')),
 		);
@@ -54,15 +66,14 @@ class ChatController extends Controller
 		if(empty($params['text']))
 			$this->response(1006);
 
-		$message = new Message();
-		$message->user_id = Yii::app()->user->id;
-		$message->message_text = $params['text'];
-		$message->message_is_exp = intval($params['exp']);
-		$message->message_time = time();
+		$chat = new Chat();
+		$chat->user_id = Yii::app()->user->id;
+		$chat->chat_user_id = $params['chat_user_id'];//接收用户
+		$chat->chat_text = $params['text'];
 
-		if($message->save())
+		if($chat->save())
 		{
-			$this->response(0,$message->attr());
+			$this->response(0,$chat->attr());
 		}
 		else
 			$this->response(1001);
@@ -77,9 +88,9 @@ class ChatController extends Controller
 	 */
 	public function actionDelete()
 	{
-		if(!in_array(Yii::app()->user->getState('user')->role_id ,array(1,2)))
+		if(Yii::app()->user->getState('user')->role_id==1)
 			$this->response(1000);
-		$model = Message::model()->findByPk(intval(Yii::app()->request->getParam('id',0)));
+		$model = Chat::model()->findByPk(intval(Yii::app()->request->getParam('id',0)));
 		if($model && $model->delete())
 		{
 			$this->response(0);
