@@ -102,12 +102,20 @@ class ActiveRecord extends CActiveRecord
             if(isset($other['group'])&&!empty($other['group']))$group = $other['group'];
         }
 
-		return $this->property($this->findAll(array(
+		$data = $this->property($this->findAll(array(
 			'condition' => $this->getCondition($params).$condition,
 			'order' => $order,
             'group' => $group,
         )));
 
+		$extra = array(
+			'total'=>count($data),
+			'pages'=>0,
+			'page'=>0,
+			'size'=>0,
+			'subtotal'=>0,
+		);
+		return array('data'=>$data,'extra'=>$extra);
 	}
 
 	/**
