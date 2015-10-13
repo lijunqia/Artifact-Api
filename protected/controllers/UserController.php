@@ -36,6 +36,7 @@ class UserController extends Controller
 	public function actionService()
 	{
 		$params = array(
+			'>'=>array('user_expire'=>time()),
 			'user_is_service' => 1,
 			'other' => array(
 				'order' => Yii::app()->request->getParam('order','user_id'),

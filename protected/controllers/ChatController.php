@@ -55,8 +55,6 @@ class ChatController extends Controller
 	 */
 	public function actionCreate()
 	{
-		if(Yii::app()->user->getState('user')->role_id==1)
-			$this->response(1000);
 		$params = array(
 			'chat_user_id' => intval(Yii::app()->request->getParam('to',0)),
 			'text' => Yii::app()->request->getParam('text',''),
