@@ -161,4 +161,20 @@ class User extends TUser
 		$log->save();
 		return parent::beforeDelete();
 	}
+
+	public function services($params)
+	{
+		$models = User::model()->all($params);
+		$data=array();
+		foreach($models['data'] as $model)
+		{
+			$data[]=array(
+				'user_id' => $model['user_id'],
+				'user_name' => $model['user_name'],
+			);
+		}
+		$models['data'] = $data;
+		return $models;
+	}
+
 }

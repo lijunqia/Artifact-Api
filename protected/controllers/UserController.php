@@ -9,7 +9,7 @@ class UserController extends Controller
 			$this->response(1000);
 		$minid = intval(Yii::app()->request->getParam('min',0));
 		$exp = intval(Yii::app()->request->getParam('exp',-1));
-		$is_service = intval(Yii::app()->request->getParam('service',0));
+		$is_service = intval(Yii::app()->request->getParam('service',-1));
 		$params = array(
 			'other' => array(
 				'page' => intval(Yii::app()->request->getParam('page',0)),
@@ -26,11 +26,23 @@ class UserController extends Controller
 		);
 		if($exp!=-1)
 			$params['user_is_exp'] = array($exp);
-		if($is_service>0)
+		if($is_service!=-1)
 			$params['user_is_service'] = array($is_service);
 
 
 		$this->response(0,User::model()->lists($params));
+	}
+
+	public function actionService()
+	{
+		$params = array(
+			'user_is_service' => 1,
+			'other' => array(
+				'order' => Yii::app()->request->getParam('order','user_id'),
+			),
+		);
+
+		$this->response(0,User::model()->services($params));
 	}
 
 	/**
