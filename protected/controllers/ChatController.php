@@ -4,7 +4,7 @@ class ChatController extends Controller
 {
 	public function actionIndex()
 	{
-		$minid = intval(Yii::app()->request->getParam('minid',0));
+		$minid = intval(Yii::app()->request->getParam('min',0));
 		$to_user = intval(Yii::app()->request->getParam('to',0));
 		$params = array(
 			'other' => array(
