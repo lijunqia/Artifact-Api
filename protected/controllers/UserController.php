@@ -67,6 +67,7 @@ class UserController extends Controller
 			$this->response(1000);
 		$params = array(
 			'id' => intval(Yii::app()->request->getParam('id',0)),
+			'service' => intval(Yii::app()->request->getParam('service',0)),
 			'pcode' => Yii::app()->request->getParam('pcode',''),
 			'code' => Yii::app()->request->getParam('code',''),
 			'name' => Yii::app()->request->getParam('name',''),
@@ -89,6 +90,7 @@ class UserController extends Controller
 		}
 		$model->user_code = $params['code'];
 		$model->user_name = $params['name'];
+		$model->user_is_service = intval($params['service']);
 		$model->user_password = $params['pwd'];
 		$model->role_id = intval($params['role']);
 		$model->user_mobile = $params['mobile'];
@@ -129,6 +131,7 @@ class UserController extends Controller
 			$this->response(1000);
 		$params = array(
 			'pcode' => Yii::app()->request->getParam('pcode',''),
+			'service' => intval(Yii::app()->request->getParam('service',0)),
 			'code' => Yii::app()->request->getParam('code',''),
 			'name' => Yii::app()->request->getParam('name',''),
 			'pwd' => Yii::app()->request->getParam('pwd',''),

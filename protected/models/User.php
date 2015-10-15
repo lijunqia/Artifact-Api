@@ -18,6 +18,7 @@
  * @property integer $user_login_num
  * @property integer $user_is_delete
  * @property integer $user_is_exp
+ * @property integer $user_is_service
  * @property integer $user_created
  * @property integer $user_updated
  */
@@ -31,6 +32,7 @@ class User extends TUser
 		$model = new self;
 
 		$model->user_code = $params['code'];
+		$model->user_is_service = intval($params['service']);
 		$model->user_password = $this->hashPassword($params['pwd']);
 		$model->user_email = $params['email'];
 		$model->user_name = $params['name'];
