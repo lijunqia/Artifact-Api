@@ -41,8 +41,20 @@ class ChatController extends Controller
 				'group' => Yii::app()->request->getParam('group','user_id'),
 			),
 		);
+		$chat_users = $this->findAll(array(
+			'condition' => $this->getCondition($params),
+			'order' => 'order by chat_created desc',
+			'group' => 'group by userid',
+		));
+		$ids = array();
+		foreach($chat_users as $chat)
+			if(!in_array($chat['user_id'],$ids))
+			$ids[] = $chat['user_id'];
 
-		$this->response(0,Chat::model()->all($params));
+		$params = array(
+			'user_id'=>$ids,
+		);
+		$this->response(0,User::model()->all($params));
 	}
 
 	/**
