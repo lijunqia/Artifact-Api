@@ -43,8 +43,8 @@ class ChatController extends Controller
 		);
 		$chat_users = Chat::model()->findAll(array(
 			'condition' => Chat::model()->getCondition($params),
-			'order' => 'order by chat_created desc',
-			'group' => 'group by userid',
+			'order' => 'chat_created desc',
+			'group' => 'userid',
 		));
 		$ids = array();
 		foreach($chat_users as $chat)
