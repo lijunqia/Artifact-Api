@@ -51,8 +51,11 @@ class ChatController extends Controller
 			if(!in_array($chat['user_id'],$ids))
 			$ids[] = $chat['user_id'];
 
+		if(count($ids)==0)
+			$this->response(0,array('data'=>array()));
 		$params = array(
 			'user_id'=>$ids,
+			'user_is_service'=>array(0),
 		);
 		$this->response(0,User::model()->all($params));
 	}
