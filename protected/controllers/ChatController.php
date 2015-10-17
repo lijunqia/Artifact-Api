@@ -12,16 +12,15 @@ class ChatController extends Controller
 				'size' => intval(Yii::app()->request->getParam('size',10)),
 				'order' => Yii::app()->request->getParam('order','chat_id'),
 			),
-			'>'=>array('chat_id'=>$minid ,'chat_created'=>time()-604800),
+		//	'>'=>array('chat_id'=>$minid ,'chat_created'=>time()-604800),
 			'like' => array('chat_text'=>Yii::app()->request->getParam('q','')),
 		);
-		$condition = ' and ( user_id='.intval(Yii::app()->user->id);
+		$condition = ' and ( user_id='.intval(Yii::app()->user->id).' or chat_user_id='.intval(Yii::app()->user->id).') ';
 
 		if($to_user>0)
 		{
-			$condition .= ' or chat_user_id='.$to_user;
+			$condition .= ' and (user_id='.$to_user.' or chat_user_id='.$to_user.')';
 		}
-		$condition .= ')';
 
 		$this->response(0,Chat::model()->lists($params,$condition));
 	}
