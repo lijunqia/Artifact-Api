@@ -44,7 +44,7 @@ class ChatController extends Controller
 		$chat_users = Chat::model()->findAll(array(
 			'condition' => Chat::model()->getCondition($params),
 			'order' => 'chat_created desc',
-			'group' => 'userid',
+			'group' => 'user_id',
 		));
 		$ids = array();
 		foreach($chat_users as $chat)
