@@ -45,7 +45,7 @@ class UserIdentity extends CUserIdentity
 				if (!$user->user_is_delete && $user->validatePassword($this->password))
 				{
 					$user->user_last_time = time();
-					$user->user_last_ip = Yii::app()->request->getUserHostAddress();
+					$user->user_last_ip = Yii::app()->request->getParam('ip', Yii::app()->request->getUserHostAddress());
 					$user->user_login_num += 1;
 
 					$user->save();
