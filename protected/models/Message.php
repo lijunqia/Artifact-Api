@@ -17,6 +17,7 @@ class Message extends TMessage
 	public function attr()
 	{
 		$attr = $this->attributes;
+		$attr['user']=User::model()->a($this->user_id)->attr();
 		$attr['message_time'] = date('Y-m-d H:i:s',$attr['message_time']);
 		$attr['message_created'] = date('Y-m-d H:i:s',$attr['message_created']);
 		$attr['message_updated'] = date('Y-m-d H:i:s',$attr['message_updated']);
