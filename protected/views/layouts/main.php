@@ -4,17 +4,46 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<!-- blueprint CSS framework -->
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css" media="screen, projection" />
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
-
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <style>
+
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        div#content table,div#content th,div#content td {
+            border: 1px solid #bbb;
+        }
+
+        td,th {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+        th {
+            background-color: #ededed;
+            color: #636363;
+            text-align: left;
+        }
+
+        td {
+            color: #2a2a2a;
+            vertical-align: top;
+        }
+
+        table p:last-child {
+            padding-bottom: 0;
+        }
+
+    </style>
 </head>
 
 <body>
 	<?php echo $content; ?>
+<a name="buttom"></a>
 </body>
 </html>

@@ -4,8 +4,22 @@
  */
 $this->pageTitle = '公告信息';
 
-foreach ($models['data'] as $model)
-{
-    echo '<div>'.date('Y-m-d H:i:s',intval($model['notice_created'])).'<br>&nbsp;'. $model['notice_body'].'</div>';
-}
 ?>
+
+<table width="100%" responsive="true" summary="table">
+    <tbody>
+    <?php
+    foreach ($models['data'] as $model)
+    {
+        ?>
+        <tr responsive="true">
+            <th align="left" scope="col"><?=date('Y-m-d H:i:s',intval($model['notice_created']));?></th>
+        </tr>
+        <tr valign="top">
+            <td><?=$model['notice_body'];?></td>
+        </tr>
+        <?php
+    }
+    ?>
+    </tbody>
+</table>
