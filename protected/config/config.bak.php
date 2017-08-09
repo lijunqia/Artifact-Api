@@ -7,9 +7,9 @@ define('YII_DEBUG',true);//测试环境，生产环境可屏蔽
 define('YII_TRACE_LEVEL',3);//输出日志等级
 
 //数据库配置
-define('DB_CONNECTION','mysql:host=localhost;dbname=api_zhongyi8888_com');
-define('DB_USER','root');
-define('DB_PASSWORD','1227861563');
+define('DB_CONNECTION','mysql:host=localhost;dbname=soft_artifact');
+define('DB_USER','soft');
+define('DB_PASSWORD','UdJOiK2iDRalCGNe');
 define('DB_EMULATE',true);
 define('DB_CHARSET','utf8');
 
