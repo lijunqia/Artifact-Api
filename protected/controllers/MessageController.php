@@ -43,7 +43,7 @@ class MessageController extends Controller
 	 */
 	public function actionCreate()
 	{
-		if(Yii::app()->user->getState('user')->role_id <5)
+		if(Yii::app()->user->getState('user')->role_id >= 5)
 			$this->response(1000);
 		$params = array(
 			'exp' => intval(Yii::app()->request->getParam('exp',0)),
