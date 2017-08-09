@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="10">
+    <meta http-equiv="refresh" content="5">
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
     <style>
 
@@ -50,7 +50,7 @@
 function myrefresh(){
     window.location.reload();
 }
-setTimeout('myrefresh()',1000); //指定1秒刷新一次
+setTimeout('myrefresh()',5000); //指定1秒刷新一次
 </script>
 </body>
 </html>
