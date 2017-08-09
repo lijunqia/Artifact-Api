@@ -21,7 +21,7 @@ class Status extends TStatus
 	}
 
 	/**
-	 * ¸ù¾İ×´Ì¬Âë·µ»Ø×´Ì¬ËµÃ÷
+	 * æ ¹æ®çŠ¶æ€ç è¿”å›çŠ¶æ€è¯´æ˜
 	 * @return string
 	 */
 	public static function item($code)

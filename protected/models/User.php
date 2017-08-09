@@ -76,7 +76,7 @@ class User extends TUser
 		return false;
 	}
 	/**
-	 * ÑéÖ¤ÃÜÂë
+	 * éªŒè¯å¯†ç 
 	 * @return boolean
 	 */
 	public function validatePassword($password)
@@ -85,7 +85,7 @@ class User extends TUser
 	}
 
 	/**
-	 * ÖØÉèÃÜÂë
+	 * é‡è®¾å¯†ç 
 	 * @return boolean
 	 */
 	public function resetPassword($password)
@@ -100,7 +100,7 @@ class User extends TUser
 	}
 
 	/**
-	 * ¼ÓÃÜÃÜÂë
+	 * åŠ å¯†å¯†ç 
 	 * @return string
 	 */
 	public function hashPassword($password)

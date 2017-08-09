@@ -25,8 +25,8 @@ class Chat extends TChat
 	public function attr()
 	{
 		$attr = $this->attributes;
-		$attr['user'] = User::model()->a($attr['user_id'])->user_name;//·¢ËÍÓÃ»§
-		$attr['to_user'] = User::model()->a($attr['chat_user_id'])->user_name;//½ÓÊÕÓÃ»§
+		$attr['user'] = User::model()->a($attr['user_id'])->user_name;//å‘é€ç”¨æˆ·
+		$attr['to_user'] = User::model()->a($attr['chat_user_id'])->user_name;//æ¥æ”¶ç”¨æˆ·
 		$attr['chat_created'] = date('Y-m-d H:i:s',$attr['chat_created']);
 		$attr['chat_updated'] = date('Y-m-d H:i:s',$attr['chat_updated']);
 		return $attr;

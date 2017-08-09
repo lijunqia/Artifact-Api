@@ -26,7 +26,7 @@ class ChatController extends Controller
 	}
 
 	/**
-	 * ·¢¸ø¿Í·şµÄÓÃ»§ÁĞ±í
+	 * å‘ç»™å®¢æœçš„ç”¨æˆ·åˆ—è¡¨
 	 *
 	 * @return mixed json
 	 */
@@ -61,10 +61,10 @@ class ChatController extends Controller
 	}
 
 	/**
-	 * ·¢²¼ĞÅÏ¢
-	 * @param string @text ÄÚÈİ
-	 * @param int @exp ÊÇ·ñÌåÑéĞÅÏ¢
-	 * @param string @time ·¢²¼Ê±¼ä
+	 * å‘å¸ƒä¿¡æ¯
+	 * @param string @text å†…å®¹
+	 * @param int @exp æ˜¯å¦ä½“éªŒä¿¡æ¯
+	 * @param string @time å‘å¸ƒæ—¶é—´
 	 *
 	 * @return mixed json
 	 */
@@ -81,7 +81,7 @@ class ChatController extends Controller
 
 		$chat = new Chat();
 		$chat->user_id = Yii::app()->user->id;
-		$chat->chat_user_id = $params['chat_user_id'];//½ÓÊÕÓÃ»§
+		$chat->chat_user_id = $params['chat_user_id'];//æ¥æ”¶ç”¨æˆ·
 		$chat->chat_text = $params['text'];
 
 		if($chat->save())
@@ -94,8 +94,8 @@ class ChatController extends Controller
 
 
 	/**
-	 * ·¢²¼ĞÅÏ¢
-	 * @param int @id ĞÅÏ¢ID
+	 * å‘å¸ƒä¿¡æ¯
+	 * @param int @id ä¿¡æ¯ID
 	 *
 	 * @return mixed json
 	 */
@@ -113,10 +113,10 @@ class ChatController extends Controller
 	}
 
 	/**
-	 * ÆÁÄ»½ØÍ¼
-	 * @param string $appkey ÏµÍ³·ÖÅäÓ¦ÓÃKEY
-	 * @param string $token ÓÃ»§µÇÂ¼ºóÏµÍ³·ÖÅäµÄtoken
-	 * @param string $avator Í·Ïñ
+	 * å±å¹•æˆªå›¾
+	 * @param string $appkey ç³»ç»Ÿåˆ†é…åº”ç”¨KEY
+	 * @param string $token ç”¨æˆ·ç™»å½•åç³»ç»Ÿåˆ†é…çš„token
+	 * @param string $avator å¤´åƒ
 	 */
 	public function actionUpload()
 	{
@@ -126,7 +126,7 @@ class ChatController extends Controller
 		$path =  '/chat/'.date('Ymd').'/';
 		$dir  = SITE_UPLOAD. $path ;
 		LUtil::mkdirs($dir);
-		$filename  =  $path.date("His").floor(microtime() * 1000).'_'.LUtil::generateRandCode(4,4). '.jpg';//ÉÏ´«ÎÄ¼şµÄÀ©Õ¹Ãû
+		$filename  =  $path.date("His").floor(microtime() * 1000).'_'.LUtil::generateRandCode(4,4). '.jpg';//ä¸Šä¼ æ–‡ä»¶çš„æ‰©å±•å
 		file_put_contents(SITE_UPLOAD.$filename, base64_decode($image));
 		if(is_file(SITE_UPLOAD.$filename))
 		{

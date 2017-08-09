@@ -47,19 +47,19 @@ class UserController extends Controller
 	}
 
 	/**
-	 * ×¢²á½Ó¿Ú
-	 * @appkey ÏµÍ³·ÖÅäÓ¦ÓÃKEY
-	 * @pid ÑûÇëÈËID
-	 * @pcode ÑûÇëÈËÕË»§»òÊÖ»ú
-	 * @code ÕËºÅ,¿ÉÎª¿Õ
-	 * @pwd ÃÜÂë,±ØÌî
-	 * @name ĞÕÃû,¿ÉÎª¿Õ
-	 * @mobie ÊÖ»ú,±ØÌî
-	 * @email ÓÊÏä,¿ÉÎª¿Õ
-	 * @province Ê¡
-	 * @city ÊĞ
-	 * @area Çø
-	 * @key ÑéÖ¤ÑéÖ¤Âë³É¹¦ºó·µ»ØµÄ²ÎÊıÔÙ»Ø´«µ½·şÎñÆ÷
+	 * æ³¨å†Œæ¥å£
+	 * @appkey ç³»ç»Ÿåˆ†é…åº”ç”¨KEY
+	 * @pid é‚€è¯·äººID
+	 * @pcode é‚€è¯·äººè´¦æˆ·æˆ–æ‰‹æœº
+	 * @code è´¦å·,å¯ä¸ºç©º
+	 * @pwd å¯†ç ,å¿…å¡«
+	 * @name å§“å,å¯ä¸ºç©º
+	 * @mobie æ‰‹æœº,å¿…å¡«
+	 * @email é‚®ç®±,å¯ä¸ºç©º
+	 * @province çœ
+	 * @city å¸‚
+	 * @area åŒº
+	 * @key éªŒè¯éªŒè¯ç æˆåŠŸåè¿”å›çš„å‚æ•°å†å›ä¼ åˆ°æœåŠ¡å™¨
 	 */
 	public function actionUpdate()
 	{
@@ -111,19 +111,19 @@ class UserController extends Controller
 	}
 
 	/**
-	 * ×¢²á½Ó¿Ú
-	 * @appkey ÏµÍ³·ÖÅäÓ¦ÓÃKEY
-	 * @pid ÑûÇëÈËID
-	 * @pcode ÑûÇëÈËÕË»§»òÊÖ»ú
-	 * @code ÕËºÅ,¿ÉÎª¿Õ
-	 * @pwd ÃÜÂë,±ØÌî
-	 * @name ĞÕÃû,¿ÉÎª¿Õ
-	 * @mobie ÊÖ»ú,±ØÌî
-	 * @email ÓÊÏä,¿ÉÎª¿Õ
-	 * @province Ê¡
-	 * @city ÊĞ
-	 * @area Çø
-	 * @key ÑéÖ¤ÑéÖ¤Âë³É¹¦ºó·µ»ØµÄ²ÎÊıÔÙ»Ø´«µ½·şÎñÆ÷
+	 * æ³¨å†Œæ¥å£
+	 * @appkey ç³»ç»Ÿåˆ†é…åº”ç”¨KEY
+	 * @pid é‚€è¯·äººID
+	 * @pcode é‚€è¯·äººè´¦æˆ·æˆ–æ‰‹æœº
+	 * @code è´¦å·,å¯ä¸ºç©º
+	 * @pwd å¯†ç ,å¿…å¡«
+	 * @name å§“å,å¯ä¸ºç©º
+	 * @mobie æ‰‹æœº,å¿…å¡«
+	 * @email é‚®ç®±,å¯ä¸ºç©º
+	 * @province çœ
+	 * @city å¸‚
+	 * @area åŒº
+	 * @key éªŒè¯éªŒè¯ç æˆåŠŸåè¿”å›çš„å‚æ•°å†å›ä¼ åˆ°æœåŠ¡å™¨
 	 */
 	public function actionCreate()
 	{
@@ -157,10 +157,10 @@ class UserController extends Controller
 	}
 
 	/**
-	 * ·¢²¼ĞÅÏ¢
-	 * @param string @text ÄÚÈİ
-	 * @param int @exp ÊÇ·ñÌåÑéĞÅÏ¢
-	 * @param string @time ·¢²¼Ê±¼ä
+	 * å‘å¸ƒä¿¡æ¯
+	 * @param string @text å†…å®¹
+	 * @param int @exp æ˜¯å¦ä½“éªŒä¿¡æ¯
+	 * @param string @time å‘å¸ƒæ—¶é—´
 	 *
 	 * @return mixed json
 	 */
@@ -177,11 +177,11 @@ class UserController extends Controller
 	}
 
 	/**
-	 * ĞŞ¸ÄÃÜÂë½Ó¿Ú
-	 * @param string $appkey ÏµÍ³·ÖÅäÓ¦ÓÃKEY
-	 * @param string $token ÓÃ»§µÇÂ¼ºóÏµÍ³·ÖÅäµÄtoken
-	 * @param string $old Ô­ÃÜÂë
-	 * @param string $pwd ĞÂÃÜÂë
+	 * ä¿®æ”¹å¯†ç æ¥å£
+	 * @param string $appkey ç³»ç»Ÿåˆ†é…åº”ç”¨KEY
+	 * @param string $token ç”¨æˆ·ç™»å½•åç³»ç»Ÿåˆ†é…çš„token
+	 * @param string $old åŸå¯†ç 
+	 * @param string $pwd æ–°å¯†ç 
 	 */
 	public function actionReset()
 	{

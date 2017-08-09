@@ -16,14 +16,14 @@ class MessageController extends Controller
 		);
 		switch(Yii::app()->user->getState('user')->role_id)
 		{
-			case 1://¹ÜÀíÔ±
-			case 2://ĞÅÏ¢¹ÜÀí
-			case 3://»áÔ±¹ÜÀí
+			case 1://ç®¡ç†å‘˜
+			case 2://ä¿¡æ¯ç®¡ç†
+			case 3://ä¼šå‘˜ç®¡ç†
 				break;
-			case 4://»áÔ±
+			case 4://ä¼šå‘˜
 				$params['message_is_exp'] = array(0);
 				break;
-			case 5://ÌåÑé
+			case 5://ä½“éªŒ
 				$params['message_is_exp'] = 1;
 				break;
 		}
@@ -34,16 +34,16 @@ class MessageController extends Controller
 
 
 	/**
-	 * ·¢²¼ĞÅÏ¢
-	 * @param string @text ÄÚÈİ
-	 * @param int @exp ÊÇ·ñÌåÑéĞÅÏ¢
-	 * @param string @time ·¢²¼Ê±¼ä
+	 * å‘å¸ƒä¿¡æ¯
+	 * @param string @text å†…å®¹
+	 * @param int @exp æ˜¯å¦ä½“éªŒä¿¡æ¯
+	 * @param string @time å‘å¸ƒæ—¶é—´
 	 *
 	 * @return mixed json
 	 */
 	public function actionCreate()
 	{
-		if(!in_array(Yii::app()->user->getState('user')->role_id ,array(1,2)))
+		if(Yii::app()->user->getState('user')->role_id <5)
 			$this->response(1000);
 		$params = array(
 			'exp' => intval(Yii::app()->request->getParam('exp',0)),
@@ -70,8 +70,8 @@ class MessageController extends Controller
 
 
 	/**
-	 * ·¢²¼ĞÅÏ¢
-	 * @param int @id ĞÅÏ¢ID
+	 * å‘å¸ƒä¿¡æ¯
+	 * @param int @id ä¿¡æ¯ID
 	 *
 	 * @return mixed json
 	 */
@@ -89,10 +89,10 @@ class MessageController extends Controller
 	}
 
 	/**
-	 * ÆÁÄ»½ØÍ¼
-	 * @param string $appkey ÏµÍ³·ÖÅäÓ¦ÓÃKEY
-	 * @param string $token ÓÃ»§µÇÂ¼ºóÏµÍ³·ÖÅäµÄtoken
-	 * @param string $avator Í·Ïñ
+	 * å±å¹•æˆªå›¾
+	 * @param string $appkey ç³»ç»Ÿåˆ†é…åº”ç”¨KEY
+	 * @param string $token ç”¨æˆ·ç™»å½•åç³»ç»Ÿåˆ†é…çš„token
+	 * @param string $avator å¤´åƒ
 	 */
 	public function actionUpload()
 	{
@@ -102,7 +102,7 @@ class MessageController extends Controller
 		$path =  '/snap/'.date('Ymd').'/';
 		$dir  = SITE_UPLOAD. $path ;
 		LUtil::mkdirs($dir);
-		$filename  =  $path.date("His").floor(microtime() * 1000).'_'.LUtil::generateRandCode(4,4). '.jpg';//ÉÏ´«ÎÄ¼şµÄÀ©Õ¹Ãû
+		$filename  =  $path.date("His").floor(microtime() * 1000).'_'.LUtil::generateRandCode(4,4). '.jpg';//ä¸Šä¼ æ–‡ä»¶çš„æ‰©å±•å
 		file_put_contents(SITE_UPLOAD.$filename, base64_decode($image));
 		if(is_file(SITE_UPLOAD.$filename))
 		{
