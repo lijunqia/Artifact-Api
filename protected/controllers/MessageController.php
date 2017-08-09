@@ -39,7 +39,7 @@ class MessageController extends Controller
         $params = array(
             'other' => array(
                 'page' => intval(Yii::app()->request->getParam('page',0)),
-                'size' => intval(Yii::app()->request->getParam('size',10)),
+                'size' => intval(Yii::app()->request->getParam('size',30)),
                 'order' => Yii::app()->request->getParam('order','message_id'),
             ),
             'message_type'=>intval(Yii::app()->request->getParam('type',0)),
