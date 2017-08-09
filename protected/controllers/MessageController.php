@@ -63,7 +63,7 @@ class MessageController extends Controller
 
 
         $this->render('list',array(
-            'models'=>Message::model()->lists(array()),
+            'models'=>Message::model()->lists($params),
         ));
     }
 

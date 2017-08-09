@@ -45,8 +45,8 @@
 
 <body>
 	<?php echo $content; ?>
-<a name="buttom"></a>
- <script language="JavaScript">
+
+<script language="JavaScript">
 function myrefresh(){
     window.location.reload();
 }
