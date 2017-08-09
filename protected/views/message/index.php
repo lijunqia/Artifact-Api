@@ -1,10 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Message',
-);?>
-<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
+$this->pageTitle = '聊天信息 - '.Yii::app()->name;
 
-<p>
-	You may change the content of this page by modifying
-	the file <tt><?php echo __FILE__; ?></tt>.
-</p>
+?>

@@ -1,2 +1,4 @@
 .idea/
 protected/config/config.php
+assets/
+protected/runtime/

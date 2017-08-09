@@ -33,6 +33,72 @@ class ActiveRecord extends CActiveRecord
 
 
     /**
+     * 将参数组合为查询条件
+     * @param array $params //查询条件
+     * @param array $other //记录数，排序等
+     * @return CActiveDataProvider
+     */
+    public function provider($params = array(),$other=array())
+    {
+        $criteria=new CDbCriteria(array(
+            'condition' => '',
+        ));
+
+        $size = 10;
+        $order = $this->getTableSchema()->primaryKey.' DESC';
+
+        if(isset($other['size']))
+            $size = intval($other['size']);
+        if(isset($other['order']))
+            $order = $other['order'];
+
+        foreach($params as $key => $val)
+        {
+            if($key == 'like')
+            {
+                if(is_array($val))
+                {
+                    foreach($val as $k=>$q)
+                    {
+                        if($q)
+                            $criteria->addSearchCondition($k, $q);
+                    }
+                }
+            }
+            elseif($key == 'between')
+            {
+                if(is_array($val))
+                {
+                    foreach($val as $k=>$v)
+                    {
+                        if(isset($v['min']) && isset($v['max']) && $v['min']>0 && $v['max']>0)
+                            $criteria->addBetweenCondition($k,$v['min'],$v['max']);
+
+                        if(isset($v['start']) && isset($v['end']))
+                            $criteria->addBetweenCondition($k,$v['start'],$v['end']);
+                    }
+                }
+            }
+            elseif(!empty($val) && is_string($val))
+                $criteria->compare($key,$val);
+            elseif(!empty($val) && is_array($val))
+                $criteria->compare($key,array_filter($val));
+            elseif(is_int($val) && $val>0)
+                $criteria->compare($key,$val);
+        }
+
+        return new CActiveDataProvider($this, array(
+            'pagination'=>array(
+                'pageSize'=> $size,
+            ),
+            'sort'=>array(
+                'defaultOrder'=>$order,
+            ),
+            'criteria'=>$criteria,
+        ));
+    }
+
+    /**
 	 * 查询列表
 	 * @params array 查询条件
 	 * @return model

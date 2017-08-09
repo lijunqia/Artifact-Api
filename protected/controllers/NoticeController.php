@@ -1,6 +1,6 @@
 <?php
 
-class MessageController extends Controller
+class NoticeController extends Controller
 {
 	public function actionIndex()
 	{
@@ -29,38 +29,8 @@ class MessageController extends Controller
 		}
 
 
-		$this->response(0,Message::model()->lists($params));
-	}
-
-    public function actionList()
-    {
-        $minid = intval(Yii::app()->request->getParam('min',0));
-        $params = array(
-            'other' => array(
-                'page' => intval(Yii::app()->request->getParam('page',0)),
-                'size' => intval(Yii::app()->request->getParam('size',10)),
-                'order' => Yii::app()->request->getParam('order','message_id'),
-            ),
-            '>'=>array('message_id'=> $minid,'message_created'=>time()-604800),
-            'like' => array('message_text'=>Yii::app()->request->getParam('q','')),
-        );
-        switch(Yii::app()->user->getState('user')->role_id)
-        {
-            case 1://管理员
-            case 2://信息管理
-            case 3://会员管理
-                break;
-            case 4://会员
-                $params['message_is_exp'] = array(0);
-                break;
-            case 5://体验
-                $params['message_is_exp'] = 1;
-                break;
-        }
-
-
-        $this->render('list',array(
-            'models'=>Message::model()->lists(array()),
+        $this->render('index',array(
+            'models'=>Notice::model()->lists(array()),
         ));
     }
 
@@ -75,7 +45,7 @@ class MessageController extends Controller
 	 */
 	public function actionCreate()
 	{
-		if(Yii::app()->user->getState('user')->role_id >= 5)
+		if(Yii::app()->user->getState('user')->role_id >= 3)
 			$this->response(1000);
 		$params = array(
 			'exp' => intval(Yii::app()->request->getParam('exp',0)),
@@ -86,15 +56,13 @@ class MessageController extends Controller
 		if(empty($params['text']))
 			$this->response(1006);
 
-		$message = new Message();
-		$message->user_id = Yii::app()->user->id;
-		$message->message_text = $params['text'];
-		$message->message_is_exp = intval($params['exp']);
-		$message->message_time = time();
+		$notice = new Notice();
+        $notice->user_id = Yii::app()->user->id;
+        $notice->notice_body = $params['text'];
 
-		if($message->save())
+		if($notice->save())
 		{
-			$this->response(0,$message->attr());
+			$this->response(0,$notice->attr());
 		}
 		else
 			$this->response(1001);
@@ -111,7 +79,7 @@ class MessageController extends Controller
 	{
 		if(!in_array(Yii::app()->user->getState('user')->role_id ,array(1,2)))
 			$this->response(1000);
-		$model = Message::model()->findByPk(intval(Yii::app()->request->getParam('id',0)));
+		$model = Notice::model()->findByPk(intval(Yii::app()->request->getParam('id',0)));
 		if($model && $model->delete())
 		{
 			$this->response(0);

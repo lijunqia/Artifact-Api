@@ -51,7 +51,7 @@ class SiteController extends Controller
         if(Yii::app()->request->getParam('t') != '1')Yii::app()->end();
 
 		$session = Session::model()->find('user_id=1');
-		$this->render('index', array('session'=>$session,'token'=>$session->session_token));
+		$this->render('index', array('appkey'=>'','session'=>$session,'token'=>$session->session_token));
 	}
 
 	/**
