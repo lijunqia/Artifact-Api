@@ -81,7 +81,8 @@ class MessageController extends Controller
 		if(Yii::app()->user->getState('user')->role_id >= 5)
 			$this->response(1000);
 		$params = array(
-			'exp' => intval(Yii::app()->request->getParam('exp',0)),
+            'exp' => intval(Yii::app()->request->getParam('exp',0)),
+            'type' => intval(Yii::app()->request->getParam('type',0)),
 			'text' => Yii::app()->request->getParam('text',''),
 			'time' => Yii::app()->request->getParam('time',date('Y-m-d H:i:s')),
 		);
@@ -92,7 +93,8 @@ class MessageController extends Controller
 		$message = new Message();
 		$message->user_id = Yii::app()->user->id;
 		$message->message_text = $params['text'];
-		$message->message_is_exp = intval($params['exp']);
+        $message->message_is_exp = intval($params['exp']);
+        $message->message_type = intval($params['type']);
 		$message->message_time = time();
 
 		if($message->save())
