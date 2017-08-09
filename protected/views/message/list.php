@@ -12,7 +12,7 @@ $this->pageTitle = '聊天信息';
     {
     ?>
     <tr responsive="true">
-        <th align="left" scope="col"><?=date('Y-m-d H:i:s',intval($model['message_created']));?></th>
+        <th align="left" scope="col"><?=$model['message_created'];?></th>
     </tr>
     <tr valign="top">
         <td><?=$model['message_text'];?></td>

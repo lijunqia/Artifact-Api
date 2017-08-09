@@ -13,7 +13,7 @@ $this->pageTitle = '公告信息';
     {
         ?>
         <tr responsive="true">
-            <th align="left" scope="col"><?=date('Y-m-d H:i:s',intval($model['notice_created']));?></th>
+            <th align="left" scope="col"><?=$model['notice_created'];?></th>
         </tr>
         <tr valign="top">
             <td><?=$model['notice_body'];?></td>
