@@ -106,7 +106,7 @@ class MessageController extends Controller
 		file_put_contents(SITE_UPLOAD.$filename, base64_decode($image));
 		if(is_file(SITE_UPLOAD.$filename))
 		{
-			$this->response(0,array('url'=>Yii::app()->params->upload.$filename));
+			$this->response(0,array('url'=>Yii::app()->request->hostInfo . Yii::app()->params->upload.$filename));
 		}
 
 		$this->response(1001);

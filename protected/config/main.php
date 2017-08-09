@@ -103,7 +103,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 
-		'upload'=>'http://api.zhongyi8888.com/upload',
+		'upload'=>'/upload',
 
 	),
 );
