@@ -42,7 +42,7 @@ class MessageController extends Controller
                 'size' => intval(Yii::app()->request->getParam('size',30)),
                 'order' => Yii::app()->request->getParam('order','message_id'),
             ),
-            'message_type'=>intval(Yii::app()->request->getParam('type',0)),
+            'message_type'=>array(intval(Yii::app()->request->getParam('type',0))),
             '>'=>array('message_id'=> $minid,'message_created'=>time()-604800),
             'like' => array('message_text'=>Yii::app()->request->getParam('q','')),
             'other'=>array('order'=>'message_id desc')
