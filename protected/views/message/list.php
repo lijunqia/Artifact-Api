@@ -129,7 +129,7 @@ $this->pageTitle = '聊天信息';
 <a id="buttom"></a>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script>
-
+    window.onerror=function(){return true;}
     var maxid = <?=$maxid;?>;
     function get_message()
     {
