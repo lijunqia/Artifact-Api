@@ -135,12 +135,10 @@ $this->pageTitle = '聊天信息';
 //        $('.m-message').scrollTop = speak_height.scrollHeight - speak_height.clientHeight;
         $('body').animate({scrollTop:$('.m-message').outerHeight()-window.innerHeight},200)
     }
-    var page=0;
     function get_message()
     {
-        $.getJSON("/message/index?token=<?=Yii::app()->request->getParam('token','')?>&min=<?=$maxid?>&type=<?=Yii::app()->request->getParam('type',0)?>&page="+page,function(result){
+        $.getJSON("/message/index?token=<?=Yii::app()->request->getParam('token','')?>&min=<?=$maxid?>&type=<?=Yii::app()->request->getParam('type',0)?>",function(result){
             if(result.code == 0 && result.items.length>0) {
-                page ++;
                 $.each(result.items, function (idx, obj) {
                     var html = '<li><p class="time"><span>' +
                         obj.message_created + '</span></p><div class="main ';
@@ -151,7 +149,6 @@ $this->pageTitle = '聊天信息';
                     for_bottom();
                 });
 
-                get_message();
             }
         });
     }
