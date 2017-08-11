@@ -152,7 +152,6 @@ $this->pageTitle = '聊天信息';
                     $("#msg").append(html);
                     $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
                     window.external.showWindow();
-                    console.log('show win');
                 });
 
             }
