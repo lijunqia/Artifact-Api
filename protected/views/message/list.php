@@ -138,7 +138,7 @@ $this->pageTitle = '聊天信息';
 
             if(result.code == 0 && result.items.length>0) {
                 $.each(result.items, function (idx, obj) {
-                    var img='1.jpg';
+                    var  img='2.png';
                     if(maxid < obj.message_id)
                         maxid = obj.message_id;
                     var html = '<li><p class="time"><span>' +
@@ -146,7 +146,7 @@ $this->pageTitle = '聊天信息';
                     if (obj.user_id == <?=Yii::app()->user->id;?>)
                     {
                         html += 'self';
-                        img='2.png';
+                        img='1.jpg';
                     }
                     html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><span class="text">' + obj.message_text + '</span></div></li>';
                     $("#msg").append(html);
