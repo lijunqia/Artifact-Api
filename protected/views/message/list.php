@@ -151,7 +151,8 @@ $this->pageTitle = '聊天信息';
                     html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><span class="text">' + obj.message_text + '</span></div></li>';
                     $("#msg").append(html);
                     $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
-
+                    window.external.showWindow();
+                    console.log('show win');
                 });
 
             }
