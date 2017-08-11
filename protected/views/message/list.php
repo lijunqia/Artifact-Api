@@ -137,15 +137,15 @@ $this->pageTitle = '聊天信息';
 
             if(result.code == 0 && result.items.length>0) {
                 $.each(result.items, function (idx, obj) {
-                    if(maxid < pareseInt(obj.message_id))
-                        maxid =pareseInt( obj.message_id);
+                    if(maxid < obj.message_id)
+                        maxid = obj.message_id;
                     var html = '<li><p class="time"><span>' +
                         obj.message_created + '</span></p><div class="main ';
                     if (obj.user_id == <?=Yii::app()->user->id;?>)
                         html += 'self';
                     html += '"><img class="avatar" width="30" height="30" src="/images/1.jpg"><div class="text">' + obj.message_text + '</div></div></li>';
                     $("#msg").append(html);
-                    $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 500,easing: "swing"});
+                    $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
 
                 });
 
