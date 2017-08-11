@@ -80,7 +80,8 @@ $this->pageTitle = '聊天信息';
         margin: 0 0 0 10px
     }
     .m-message .self .text {
-        background-color: #b2e281
+        background-color: #b2e281;
+        text-align: right
     }
     .m-message .self .text:before {
         right: inherit;
@@ -105,7 +106,7 @@ $this->pageTitle = '聊天信息';
                 <li>
                     <p class="time"><span><?= $model['message_created']; ?></span></p>
                     <div class="main"><img class="avatar" width="30" height="30" src="/images/2.png">
-                        <div class="text"><?= htmlspecialchars_decode($model['message_text']); ?></div>
+                        <span class="text"><?= htmlspecialchars_decode($model['message_text']); ?></span>
                     </div>
                 </li>
 
@@ -116,7 +117,7 @@ $this->pageTitle = '聊天信息';
                 <li>
                     <p class="time"><span><?= $model['message_created']; ?></span></p>
                     <div class="main self"><img class="avatar" width="30" height="30" src="/images/1.jpg">
-                        <div class="text"><?= htmlspecialchars_decode($model['message_text']); ?></div>
+                        <span class="text"><?= htmlspecialchars_decode($model['message_text']); ?></span>
                     </div>
                 </li>
 
@@ -143,7 +144,7 @@ $this->pageTitle = '聊天信息';
                         obj.message_created + '</span></p><div class="main ';
                     if (obj.user_id == <?=Yii::app()->user->id;?>)
                         html += 'self';
-                    html += '"><img class="avatar" width="30" height="30" src="/images/1.jpg"><div class="text">' + obj.message_text + '</div></div></li>';
+                    html += '"><img class="avatar" width="30" height="30" src="/images/1.jpg"><span class="text">' + obj.message_text + '</span></div></li>';
                     $("#msg").append(html);
                     $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
 
