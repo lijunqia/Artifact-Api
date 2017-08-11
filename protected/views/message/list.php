@@ -126,27 +126,27 @@ $this->pageTitle = '聊天信息';
         ?>
     </ul>
 </div>
+<a id="buttom"></a>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script>
-    function for_bottom(){
-//        var speak_height = $('.m-message').height();
-//        $('.m-message').animate({scrollTop:speak_height},500);
-//        var speak_height = $('#chat');
-//        $('.m-message').scrollTop = speak_height.scrollHeight - speak_height.clientHeight;
-        $('body').animate({scrollTop:$('.m-message').outerHeight()-window.innerHeight},200)
-    }
+
+    var maxid = <?=$maxid;?>;
     function get_message()
     {
-        $.getJSON("/message/index?token=<?=Yii::app()->request->getParam('token','')?>&min=<?=$maxid?>&type=<?=Yii::app()->request->getParam('type',0)?>",function(result){
+        $.getJSON("/message/index?token=<?=Yii::app()->request->getParam('token','')?>&type=<?=Yii::app()->request->getParam('type',0)?>&min="+maxid,function(result){
+
             if(result.code == 0 && result.items.length>0) {
                 $.each(result.items, function (idx, obj) {
+                    if(maxid < pareseInt(obj.message_id))
+                        maxid =pareseInt( obj.message_id);
                     var html = '<li><p class="time"><span>' +
                         obj.message_created + '</span></p><div class="main ';
                     if (obj.user_id == <?=Yii::app()->user->id;?>)
                         html += 'self';
                     html += '"><img class="avatar" width="30" height="30" src="/images/1.jpg"><div class="text">' + obj.message_text + '</div></div></li>';
                     $("#msg").append(html);
-                    for_bottom();
+                    $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 500,easing: "swing"});
+
                 });
 
             }
@@ -154,6 +154,6 @@ $this->pageTitle = '聊天信息';
     }
 
     $(document).ready(function(){
-        setInterval('get_message()',10000);
+        setInterval('get_message()',3000);
     });
 </script>

@@ -45,7 +45,6 @@ class MessageController extends Controller
             'message_type'=>array(intval(Yii::app()->request->getParam('type',0))),
             '>'=>array('message_id'=> $minid,'message_created'=>time()-604800),
             'like' => array('message_text'=>Yii::app()->request->getParam('q','')),
-            'other'=>array('order'=>'message_id')
         );
         switch(Yii::app()->user->getState('user')->role_id)
         {

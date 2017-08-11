@@ -10,6 +10,6 @@
 
 <body>
 	<?php echo $content; ?>
-<a name="buttom"></a>
+
 </body>
 </html>
