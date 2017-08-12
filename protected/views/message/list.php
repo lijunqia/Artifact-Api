@@ -132,6 +132,7 @@ $this->pageTitle = '聊天信息';
 <script>
     window.onerror=function(){return true;}
     var maxid = <?=$maxid;?>;
+    var msg = '';
     function get_message()
     {
         $.getJSON("/message/index?token=<?=Yii::app()->request->getParam('token','')?>&type=<?=Yii::app()->request->getParam('type',0)?>&min="+maxid,function(result){
@@ -151,14 +152,34 @@ $this->pageTitle = '聊天信息';
                     html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><span class="text">' + obj.message_text + '</span></div></li>';
                     $("#msg").append(html);
                     $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
-                    window.external.showWindow();
+                    if(obj.user.role_id<=3)
+                        window.external.showWindow();
                 });
 
             }
+            else if(result.code == 1004)
+            {
+                var html = '<li><p class="time"><span>' +
+                    getDateTime() + '</span></p><div class="main"><img class="avatar" width="30" height="30" src="/images/2.png"><span class="text">登录信息已过期，请退出重新登录</span></div></li>';
+                $("#msg").append(html);
+                $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
+                window.external.showWindow();
+                window.clearInterval(msg);
+            }
         });
     }
-
+    //yyyy-MM-dd HH:mm:SS
+    function getDateTime() {
+        d = new Date();
+        var year = d.getFullYear();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var hh = d.getHours();
+        var mm = d.getMinutes();
+        var ss = d.getSeconds();
+        return year + "-" + month + "-" + day + " " + hh + ":" + mm + ":" + ss;
+    }
     $(document).ready(function(){
-        setInterval('get_message()',3000);
+        msg = setInterval('get_message()',3000);
     });
 </script>
