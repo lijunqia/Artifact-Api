@@ -137,6 +137,7 @@ $this->pageTitle = '聊天信息';
     {
         $.getJSON("/message/index?token=<?=Yii::app()->request->getParam('token','')?>&type=<?=Yii::app()->request->getParam('type',0)?>&min="+maxid,function(result){
 
+            var sw = false;
             if(result.code == 0 && result.items.length>0) {
                 $.each(result.items, function (idx, obj) {
                     var  img='2.png';
@@ -153,7 +154,7 @@ $this->pageTitle = '聊天信息';
                     $("#msg").append(html);
                     $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
                     if(obj.user.role_id<=3)
-                        window.external.showWindow();
+                        sw=true;
                 });
 
             }
@@ -163,8 +164,13 @@ $this->pageTitle = '聊天信息';
                     getDateTime() + '</span></p><div class="main"><img class="avatar" width="30" height="30" src="/images/2.png"><span class="text">登录信息已过期，请退出重新登录</span></div></li>';
                 $("#msg").append(html);
                 $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
-                window.external.showWindow();
                 window.clearInterval(msg);
+                sw=true;
+            }
+
+            if(sw)
+            {
+                window.external.showWindow();
             }
         });
     }
