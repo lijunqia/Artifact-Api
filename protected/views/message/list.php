@@ -90,7 +90,7 @@ $this->pageTitle = '聊天信息';
         border-left-color: #b2e281
     }
     .m-message .text img,.m-message .self .text img {
-        width: 100%;
+       max-width: 100%;
     }
     .m-message .name {
         font-size: 12px;
