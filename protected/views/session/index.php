@@ -41,7 +41,7 @@ $this->pageTitle = '在线用户';
 <script>
     function delSession(id)
     {
-        $.getJSON("<?=Yii::app()->createUrl('session/delete',array('id'=>$model['user_id'],'token'=>Yii::app()->request->getParam('token','')));?>&id="+id,function(result){
+        $.getJSON("<?=Yii::app()->createUrl('session/delete',array('token'=>Yii::app()->request->getParam('token','')));?>&id="+id+'&d='+new Date(),function(result){
             if(result.code==0)
             {
                 $('#tr_'+id).remove();

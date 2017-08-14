@@ -26,11 +26,11 @@ class SessionController extends Controller
      *
      * @return mixed json
      */
-    public function actionDelete()
+    public function actionDelete($id)
     {
-        if(!in_array(Yii::app()->user->getState('user')->role_id ,array(1,2)))
+        if(!$id || !in_array(Yii::app()->user->getState('user')->role_id ,array(1,2)))
             $this->response(1000);
-        $model = Session::model()->findByPk(intval(Yii::app()->request->getParam('id',0)));
+        $model = Session::model()->findByPk($id);
         if($model && $model->delete())
         {
             $this->response(0);
