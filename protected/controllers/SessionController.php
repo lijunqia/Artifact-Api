@@ -20,4 +20,23 @@ class SessionController extends Controller
         ));
     }
 
+    /**
+     * 删除
+     * @param int @id 信息ID
+     *
+     * @return mixed json
+     */
+    public function actionDelete()
+    {
+        if(!in_array(Yii::app()->user->getState('user')->role_id ,array(1,2)))
+            $this->response(1000);
+        $model = Session::model()->findByPk(intval(Yii::app()->request->getParam('id',0)));
+        if($model && $model->delete())
+        {
+            $this->response(0);
+        }
+        else
+            $this->response(1001);
+    }
+
 }
