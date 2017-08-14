@@ -15,19 +15,19 @@ class MessageController extends Controller
 			'>'=>array('message_id'=> $minid,'message_created'=>time()-604800),
 			'like' => array('message_text'=>Yii::app()->request->getParam('q','')),
 		);
-		switch(Yii::app()->user->getState('user')->role_id)
-		{
-			case 1://管理员
-			case 2://信息管理
-			case 3://会员管理
-				break;
-			case 4://会员
-				$params['message_is_exp'] = array(0);
-				break;
-			case 5://体验
-				$params['message_is_exp'] = 1;
-				break;
-		}
+//		switch(Yii::app()->user->getState('user')->role_id)
+//		{
+//			case 1://管理员
+//			case 2://信息管理
+//			case 3://会员管理
+//				break;
+//			case 4://会员
+//				$params['message_is_exp'] = array(0);
+//				break;
+//			case 5://体验
+//				$params['message_is_exp'] = 1;
+//				break;
+//		}
 
 
 		$this->response(0,Message::model()->lists($params));
@@ -46,19 +46,19 @@ class MessageController extends Controller
             '>'=>array('message_id'=> $minid,'message_created'=>time()-604800),
             'like' => array('message_text'=>Yii::app()->request->getParam('q','')),
         );
-        switch(Yii::app()->user->getState('user')->role_id)
-        {
-            case 1://管理员
-            case 2://信息管理
-            case 3://会员管理
-                break;
-            case 4://会员
-                $params['message_is_exp'] = array(0);
-                break;
-            case 5://体验
-                $params['message_is_exp'] = 1;
-                break;
-        }
+//        switch(Yii::app()->user->getState('user')->role_id)
+//        {
+//            case 1://管理员
+//            case 2://信息管理
+//            case 3://会员管理
+//                break;
+//            case 4://会员
+//                $params['message_is_exp'] = array(0);
+//                break;
+//            case 5://体验
+//                $params['message_is_exp'] = 1;
+//                break;
+//        }
 
         $this->render('list',array(
             'models'=>Message::model()->lists($params),
