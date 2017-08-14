@@ -24,7 +24,7 @@ $this->pageTitle = '在线用户';
     foreach ($models['data'] as $model)
     {
         ?>
-        <tr responsive="true">
+        <tr responsive="true" id="tr_<?=$model['user_id']?>">
             <td align="left" scope="col"><?=$model['user']['user_code'];?></td>
             <td align="left" scope="col"><?=$model['user']['user_name'];?></td>
             <td align="left" scope="col"><?=$model['session_ip'];?></td>
@@ -44,7 +44,8 @@ $this->pageTitle = '在线用户';
         $.getJSON("<?=Yii::app()->createUrl('session/delete',array('id'=>$model['user_id'],'token'=>Yii::app()->request->getParam('token','')));?>&id="+id,function(result){
             if(result.code==0)
             {
-                window.location.reload();
+                $('#tr_'+id).remove();
+//                window.location.reload();
             }
         });
     }
