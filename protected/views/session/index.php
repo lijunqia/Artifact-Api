@@ -12,7 +12,8 @@ $this->pageTitle = '在线用户';
 </style>
 <table width="100%" cellpadding="0" cellspacing="0">
     <thead>
-    <th>用户</th>
+    <th>账号</th>
+    <th>姓名</th>
     <th>IP</th>
     <th>地区</th>
     <th>登入时间</th>
@@ -23,6 +24,7 @@ $this->pageTitle = '在线用户';
     {
         ?>
         <tr responsive="true">
+            <td align="left" scope="col"><?=$model['user']['user_code'];?></td>
             <td align="left" scope="col"><?=$model['user']['user_name'];?></td>
             <td align="left" scope="col"><?=$model['session_ip'];?></td>
             <td align="left" scope="col"><?=$model['session_area'];?></td>
