@@ -61,16 +61,16 @@ $this->pageTitle = '聊天信息';
         font-size: 9pt;
         text-align: left;
         word-break: break-all;
-        background-color: #fafafa;
+        background-color: #ff9e6f;
         border-radius: 4px
     }
     .m-message .text:before {
         content: " ";
         position: absolute;
-        top: 9px;
+        top: 3px;
         right: 100%;
         border: 6px solid transparent;
-        border-right-color: #fafafa
+        border-right-color: #ff9e6f
     }
     .m-message .self {
         text-align: right
@@ -89,6 +89,12 @@ $this->pageTitle = '聊天信息';
         border-right-color: transparent;
         border-left-color: #b2e281
     }
+    .m-message .text img,.m-message .self .text img {
+        width: 100%;
+    }
+    .m-message .name {
+        font-size: 12px;
+    }
 </style>
 <div class="m-message">
     <ul id="msg">
@@ -106,6 +112,7 @@ $this->pageTitle = '聊天信息';
                 <li>
                     <p class="time"><span><?= $model['message_created']; ?></span></p>
                     <div class="main"><img class="avatar" width="30" height="30" src="/images/2.png">
+                        <div class="name"><?= $model['user']['user_name']; ?></div>
                         <span class="text"><?= htmlspecialchars_decode($model['message_text']); ?></span>
                     </div>
                 </li>
@@ -117,6 +124,7 @@ $this->pageTitle = '聊天信息';
                 <li>
                     <p class="time"><span><?= $model['message_created']; ?></span></p>
                     <div class="main self"><img class="avatar" width="30" height="30" src="/images/1.jpg">
+                        <div class="name"><?= $model['user']['user_name']; ?></div>
                         <span class="text"><?= htmlspecialchars_decode($model['message_text']); ?></span>
                     </div>
                 </li>
@@ -150,7 +158,7 @@ $this->pageTitle = '聊天信息';
                         html += 'self';
                         img='1.jpg';
                     }
-                    html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><span class="text">' + obj.message_text + '</span></div></li>';
+                    html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><div class="name">' + obj.user.user_name + '</div><span class="text">' + obj.message_text + '</span></div></li>';
                     $("#msg").append(html);
                     $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
                     if(obj.user.role_id<=3)
