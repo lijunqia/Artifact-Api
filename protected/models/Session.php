@@ -18,6 +18,7 @@ class Session extends TSession
 	public function attr()
 	{
 		$attr = $this->attributes;
+        $attr['user']=User::model()->a($this->user_id)->attr();
 		$attr['session_visit_time'] = date('Y-m-d H:i:s',$attr['session_visit_time']);
 		$attr['session_created'] = date('Y-m-d H:i:s',$attr['session_created']);
 		$attr['session_last_time'] = date('Y-m-d H:i:s',$attr['session_last_time']);

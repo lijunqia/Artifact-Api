@@ -16,7 +16,7 @@ class SessionController extends Controller
             Yii::app()->end();
 
         $this->render('index',array(
-            'models'=>Session::model()->lists(array()),
+            'models'=>Session::model()->lists($params),
         ));
     }
 

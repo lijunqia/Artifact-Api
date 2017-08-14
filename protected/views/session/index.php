@@ -6,7 +6,11 @@
  */
 $this->pageTitle = '在线用户';
 ?>
-<table width="100%" responsive="true" summary="table">
+<style>
+    table ,th,td{ border:1px solid #ddd;}
+    th,td{ height:30px;}
+</style>
+<table width="100%" cellpadding="0" cellspacing="0">
     <thead>
     <th>用户</th>
     <th>IP</th>
