@@ -161,7 +161,7 @@ class ChatController extends Controller
         if($count)
             $this->response(0,array('count'=>$count,'id'=>$data->chat_id));
         else
-            $this->response(1000);
+            $this->response(1010);
     }
 
 }
