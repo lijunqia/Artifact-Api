@@ -157,8 +157,9 @@ class ChatController extends Controller
         $model = Chat::model();
         $condition = $model->getCondition($params).$condition;
         $count = $model->count($condition);
+        $data = $model->find($condition);
         if($count)
-            $this->response(0);
+            $this->response(0,array('id'=>$data['id']));
         else
             $this->response(1000);
     }
