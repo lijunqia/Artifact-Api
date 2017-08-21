@@ -148,7 +148,7 @@ class ChatController extends Controller
             '>'=>array('chat_id'=>$minid ,'chat_created'=>time()-60),
             'like' => array('chat_text'=>Yii::app()->request->getParam('q','')),
         );
-        $condition = ' and ( user_id='.intval(Yii::app()->user->id).' or chat_user_id='.intval(Yii::app()->user->id).') ';
+        $condition = ' and chat_is_read=0 and ( user_id='.intval(Yii::app()->user->id).' or chat_user_id='.intval(Yii::app()->user->id).') ';
 
         if($to_user>0)
         {
@@ -159,7 +159,7 @@ class ChatController extends Controller
         $count = $model->count($condition);
         $data = $model->find($condition);
         if($count)
-            $this->response(0,array('id'=>$data->chat_id));
+            $this->response(0,array('count'=>$count,'id'=>$data->chat_id));
         else
             $this->response(1000);
     }
