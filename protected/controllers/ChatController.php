@@ -159,7 +159,7 @@ class ChatController extends Controller
         $count = $model->count($condition);
         $data = $model->find($condition);
         if($count)
-            $this->response(0,array('id'=>$data['id']));
+            $this->response(0,array('id'=>$data->chat_id));
         else
             $this->response(1000);
     }
