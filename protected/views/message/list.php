@@ -176,7 +176,7 @@ $this->pageTitle = '聊天信息';
 
             var sw = false;
             if(result.code == 0 ) {
-                maxchatid = result.data.id
+                maxchatid = result.items.id;
                 if(typeof (window.external.showServiceWindow) == 'function')
                     window.external.showServiceWindow();
             }
