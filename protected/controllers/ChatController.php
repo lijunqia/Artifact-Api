@@ -135,4 +135,32 @@ class ChatController extends Controller
 
 		$this->response(1001);
 	}
+    public function actionCheck()
+    {
+        $minid = intval(Yii::app()->request->getParam('min',0));
+        $to_user = intval(Yii::app()->request->getParam('to',0));
+        $params = array(
+            'other' => array(
+                'page' => intval(Yii::app()->request->getParam('page',0)),
+                'size' => intval(Yii::app()->request->getParam('size',10)),
+                'order' => Yii::app()->request->getParam('order','chat_id desc'),
+            ),
+            '>'=>array('chat_id'=>$minid ,'chat_created'=>time()-60),
+            'like' => array('chat_text'=>Yii::app()->request->getParam('q','')),
+        );
+        $condition = ' and ( user_id='.intval(Yii::app()->user->id).' or chat_user_id='.intval(Yii::app()->user->id).') ';
+
+        if($to_user>0)
+        {
+            $condition .= ' and (user_id='.$to_user.' or chat_user_id='.$to_user.')';
+        }
+        $model = Chat::model();
+        $condition = $model->getCondition($params).$condition;
+        $count = $model->count($condition);
+        if($count)
+            $this->response(0);
+        else
+            $this->response(1000);
+    }
+
 }

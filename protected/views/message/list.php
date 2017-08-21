@@ -126,6 +126,7 @@ $this->pageTitle = '聊天信息';
 <script>
     window.onerror=function(){return true;}
     var maxid = <?=$maxid;?>;
+    var maxchatid = 0;
     var msg = '';
     function get_message()
     {
@@ -164,7 +165,19 @@ $this->pageTitle = '聊天信息';
 
             if(sw)
             {
-                window.external.showWindow();
+                if(typeof (window.external.showServiceWindow) == 'function')
+                    window.external.showWindow();
+            }
+        });
+    }
+    function get_chat_message()
+    {
+        $.getJSON("/chat/check?token=<?=Yii::app()->request->getParam('token','')?>&min="+maxchatid,function(result){
+
+            var sw = false;
+            if(result.code == 0 ) {
+                if(typeof (window.external.showServiceWindow) == 'function')
+                    window.external.showServiceWindow();
             }
         });
     }
@@ -181,6 +194,7 @@ $this->pageTitle = '聊天信息';
     }
     $(document).ready(function(){
         msg = setInterval('get_message()',3000);
+        msg = setInterval('get_chat_message()',6000);
     });
 </script>
 
