@@ -127,7 +127,7 @@ $this->pageTitle = '聊天信息';
 <div id="syncserviceform" style="display: none">0</div>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script>
-//    window.onerror=function(){return true;}
+    window.onerror=function(){return true;}
     var maxid = <?=$maxid;?>;
     var maxchatid = 0;
     var msg = '';
