@@ -58,7 +58,7 @@ $this->pageTitle = '聊天信息';
         max-width: calc(100% - 40px);
         min-height: 30px;
         line-height: 2.5;
-        font-size: 9pt;
+        font-size: 10pt;
         text-align: left;
         word-break: break-all;
         background-color: #e4d6cf;
@@ -95,7 +95,7 @@ $this->pageTitle = '聊天信息';
     .m-message .name {
         font-size: 12px;
     }
-    .admin{ color: #a91100; font-weight:bolder; font-size: 12pt;}
+    .admin{ color: #f1240e !important; font-weight:bolder !important; font-size: 14pt !important;}
 </style>
 <div class="m-message">
     <ul id="msg">
@@ -150,7 +150,7 @@ $this->pageTitle = '聊天信息';
                         html += 'self';
                         img='1.jpg';
                     }
-                    html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><div class="name">' + obj.user.user_name + '</div><span class="text">' + obj.message_text + '</span></div></li>';
+                    html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><div class="name">' + obj.user.user_name + '</div><span class="text '+(obj.user.role_id<=3?'admin':'')+'">' + obj.message_text + '</span></div></li>';
                     $("#msg").append(html);
                     $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
                     if(obj.user.role_id<=3)
