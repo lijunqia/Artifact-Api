@@ -122,15 +122,19 @@ $this->pageTitle = '聊天信息';
     </ul>
 </div>
 <a id="buttom"></a>
+<div id="syncform" style="display: none">0</div>
+<div id="syncservicecount" style="display: none">0</div>
+<div id="syncserviceform" style="display: none">0</div>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script>
-    window.onerror=function(){return true;}
+//    window.onerror=function(){return true;}
     var maxid = <?=$maxid;?>;
     var maxchatid = 0;
     var msg = '';
     var msg_chat = '';
     function get_message()
     {
+//        window.status="";
         $.getJSON("/message/index?token=<?=Yii::app()->request->getParam('token','')?>&type=<?=Yii::app()->request->getParam('type',0)?>&min="+maxid,function(result){
 
             var sw = false;
@@ -166,21 +170,26 @@ $this->pageTitle = '聊天信息';
 
             if(sw)
             {
-                if(typeof (window.external.showServiceWindow) == 'function')
-                    window.external.showWindow();
+                $("#syncform").html(maxid);
+//                if(typeof (window.external.showServiceWindow) == 'function')
+//                    window.external.showWindow();
+//                window.status=maxid;
             }
         });
     }
     function get_chat_message()
     {
+//        window.status="";
         $.getJSON("/chat/check?token=<?=Yii::app()->request->getParam('token','')?>&min="+maxchatid,function(result){
 
             var sw = false;
             if(result.code == 0 ) {
                 maxchatid = result.items.id;
-                alert(typeof (window.external.showServiceWindow))
-                if(typeof (window.external.showServiceWindow) == 'function')
-                    window.external.showServiceWindow(result.items.count);
+//                if(typeof (window.external.showServiceWindow) == 'function')
+//                    window.external.showServiceWindow(result.items.count);
+//                window.status=result.items.count;
+                $("#syncservicecount").html(result.items.count);
+                $("#syncserviceform").html(maxchatid);
             }
             else if(result.code == 1004)
             {
