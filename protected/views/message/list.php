@@ -54,7 +54,7 @@ $this->pageTitle = '聊天信息';
     .m-message .text {
         display: inline-block;
         position: relative;
-        padding: 0 10px;
+        padding: 10px;
         max-width: calc(100% - 40px);
         min-height: 30px;
         line-height: 2.5;
@@ -62,7 +62,7 @@ $this->pageTitle = '聊天信息';
         text-align: left;
         word-break: break-all;
         background-color: #e4d6cf;
-        border-radius: 4px
+        border-radius: 4px;
     }
     .m-message .text:before {
         content: " ";
