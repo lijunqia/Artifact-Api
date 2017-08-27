@@ -156,11 +156,11 @@ class MessageController extends Controller
 	{
 		//原版方式上传
 		if (isset($_FILES) && !empty($_FILES)) {
-			$data = LUtil::upfile('image', 'snap');
-			if (isset($data['file']) && is_file(SITE_UPLOAD.$data['file']))
+			$type = Yii::app()->request->getParam('type');
+			$data = LUtil::upfile('image', $type == 'sound'?'sound':'gallery');
+			if (isset($data['file']))
 			{
 				$message = new Message();
-				$type = Yii::app()->request->getParam('type');
 				if($type == 'sound')
 				{
 					$text = '<span class="mui-icon mui-icon-mic" style="font-size: 18px;font-weight: bold;"></span><span class="play-state">点击播放</span>';

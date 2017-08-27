@@ -85,7 +85,7 @@ class LUtil
 	    if(is_object($tmpFile) && get_class($tmpFile)==='CUploadedFile')
 		{
 			//创建文件存放路径
-			$path = '/'.$path.'/'.date('Ym').'/';
+			$path = '/'.$path.'/'.date('Ymd').'/';
             $filename               = 'app_'.date("His").floor(microtime() * 1000).'_'.LUtil::generateRandCode(4,4). '.' . $tmpFile->extensionName;//上传文件的扩展名
 
             $data['dir']    		= SITE_UPLOAD. $path ;   //重新赋值
