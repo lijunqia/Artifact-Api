@@ -9,7 +9,7 @@ class MessageController extends Controller
 			'other' => array(
 				'page' => intval(Yii::app()->request->getParam('page',0)),
 				'size' => intval(Yii::app()->request->getParam('size',20)),
-				'order' => Yii::app()->request->getParam('order','message_id'),
+				'order' => Yii::app()->request->getParam('order','message_id '.($minid?'':' DESC')),
 			),
             'message_type'=>intval(Yii::app()->request->getParam('type',0)),
 			'>'=>array('message_id'=> $minid,'message_created'=>time()-604800),
@@ -162,7 +162,7 @@ class MessageController extends Controller
 
 				$message = new Message();
 				$message->user_id = Yii::app()->user->id;
-				$message->message_text = '<img src="'.Yii::app()->request->hostInfo . Yii::app()->params->upload.$data['url'].'" title="'.$data['title'].'">';
+				$message->message_text = '<img src="'.$data['url'].'" title="'.$data['title'].'">';
 				$message->message_time = time();
 
 				if($message->save())
