@@ -5,6 +5,10 @@
  */
 class SiteController extends Controller
 {
+	public function actionDown()
+	{
+		$this->render('down');
+	}
 	/**
 	 * 登录接口
 	 * @appkey 系统分配应用KEY
