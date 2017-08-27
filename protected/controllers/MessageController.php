@@ -171,7 +171,7 @@ class MessageController extends Controller
 					$text = '<img src="'.$data['url'].'" title="'.$data['title'].'" class="msg-content-image" data-preview-src="" data-preview-group="1">';
 				}
 
-				$message->message_media_type = $type
+				$message->message_media_type = $type;
 				$message->user_id = Yii::app()->user->id;
 				$message->message_text = $text;
 				$message->message_time = time();
