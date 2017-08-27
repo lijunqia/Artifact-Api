@@ -11,6 +11,7 @@
  * @property string $session_token
  * @property string $session_ip
  * @property string $session_area
+ * @property string $session_uuid
  * @property integer $session_visit_time
  * @property integer $session_last_time
  * @property integer $session_created
@@ -47,12 +48,12 @@ class TSession extends ActiveRecord
 			array('session_expire, session_visit_time, session_last_time, session_created', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>11),
 			array('session_client', 'length', 'max'=>10),
-			array('session_token', 'length', 'max'=>50),
+			array('session_token, session_uuid', 'length', 'max'=>50),
 			array('session_ip', 'length', 'max'=>30),
 			array('session_area', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('session_id, user_id, session_client, session_expire, session_token, session_ip, session_area, session_visit_time, session_last_time, session_created', 'safe', 'on'=>'search'),
+			array('session_id, user_id, session_client, session_expire, session_token, session_ip, session_area, session_uuid, session_visit_time, session_last_time, session_created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +82,7 @@ class TSession extends ActiveRecord
 			'session_token' => 'Session Token',
 			'session_ip' => 'Session Ip',
 			'session_area' => 'Session Area',
+			'session_uuid' => 'Session Uuid',
 			'session_visit_time' => 'Session Visit Time',
 			'session_last_time' => 'Session Last Time',
 			'session_created' => 'Session Created',
@@ -95,6 +97,7 @@ class TSession extends ActiveRecord
 			'session_token' => Yii::t($source,'session_token'),
 			'session_ip' => Yii::t($source,'session_ip'),
 			'session_area' => Yii::t($source,'session_area'),
+			'session_uuid' => Yii::t($source,'session_uuid'),
 			'session_visit_time' => Yii::t($source,'session_visit_time'),
 			'session_last_time' => Yii::t($source,'session_last_time'),
 			'session_created' => Yii::t($source,'session_created'),
@@ -126,6 +129,7 @@ class TSession extends ActiveRecord
 		$criteria->compare('session_token',$this->session_token,true);
 		$criteria->compare('session_ip',$this->session_ip,true);
 		$criteria->compare('session_area',$this->session_area,true);
+		$criteria->compare('session_uuid',$this->session_uuid,true);
 		$criteria->compare('session_visit_time',$this->session_visit_time);
 		$criteria->compare('session_last_time',$this->session_last_time);
 		$criteria->compare('session_created',$this->session_created);
