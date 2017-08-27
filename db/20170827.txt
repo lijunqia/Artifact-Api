@@ -1,0 +1,6 @@
+ALTER TABLE `sessions`
+ADD COLUMN `session_id`  int UNSIGNED NOT NULL AUTO_INCREMENT FIRST ,
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`session_id`),
+ADD UNIQUE INDEX (`user_id`, `session_client`) ;
+

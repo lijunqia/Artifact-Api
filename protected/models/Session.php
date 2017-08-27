@@ -40,8 +40,10 @@ class Session extends TSession
 	}
 	public function token()
 	{
+		$client = Yii::app()->request->getParam('client','');
 		$model = self::model()->findByPk(Yii::app()->user->id);
 		if(!$model)$model=new self;
+		$model->session_client = $client;
 		$model->session_expire= Yii::app()->user->getState('user')->user_expire;
 		$model->session_last_time = $model->session_visit_time;
 		$model->session_token = session_id();
