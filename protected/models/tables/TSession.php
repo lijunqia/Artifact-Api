@@ -4,7 +4,9 @@
  * This is the model class for table "sessions".
  *
  * The followings are the available columns in table 'sessions':
+ * @property string $session_id
  * @property string $user_id
+ * @property string $session_client
  * @property integer $session_expire
  * @property string $session_token
  * @property string $session_ip
@@ -17,6 +19,8 @@ class TSession extends ActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
 	 * @return TSession the static model class
 	 */
 	public static function model($className=__CLASS__)
@@ -42,12 +46,13 @@ class TSession extends ActiveRecord
 		return array(
 			array('session_expire, session_visit_time, session_last_time, session_created', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>11),
+			array('session_client', 'length', 'max'=>10),
 			array('session_token', 'length', 'max'=>50),
 			array('session_ip', 'length', 'max'=>30),
 			array('session_area', 'length', 'max'=>255),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('user_id, session_expire, session_token, session_ip, session_area, session_visit_time, session_last_time, session_created', 'safe', 'on'=>'search'),
+			// @todo Please remove those attributes that should not be searched.
+			array('session_id, user_id, session_client, session_expire, session_token, session_ip, session_area, session_visit_time, session_last_time, session_created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,8 +72,11 @@ class TSession extends ActiveRecord
 	 */
 	public function attributeLabels()
 	{
+	/*
 		return array(
+			'session_id' => 'Session',
 			'user_id' => 'User',
+			'session_client' => 'Session Client',
 			'session_expire' => 'Session Expire',
 			'session_token' => 'Session Token',
 			'session_ip' => 'Session Ip',
@@ -77,20 +85,43 @@ class TSession extends ActiveRecord
 			'session_last_time' => 'Session Last Time',
 			'session_created' => 'Session Created',
 		);
+	*/
+		$source = get_class($this);
+		return array(
+			'session_id' => Yii::t($source,'session_id'),
+			'user_id' => Yii::t($source,'user_id'),
+			'session_client' => Yii::t($source,'session_client'),
+			'session_expire' => Yii::t($source,'session_expire'),
+			'session_token' => Yii::t($source,'session_token'),
+			'session_ip' => Yii::t($source,'session_ip'),
+			'session_area' => Yii::t($source,'session_area'),
+			'session_visit_time' => Yii::t($source,'session_visit_time'),
+			'session_last_time' => Yii::t($source,'session_last_time'),
+			'session_created' => Yii::t($source,'session_created'),
+		);
 	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('session_id',$this->session_id,true);
 		$criteria->compare('user_id',$this->user_id,true);
+		$criteria->compare('session_client',$this->session_client,true);
 		$criteria->compare('session_expire',$this->session_expire);
 		$criteria->compare('session_token',$this->session_token,true);
 		$criteria->compare('session_ip',$this->session_ip,true);
@@ -103,4 +134,24 @@ class TSession extends ActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+
+	/**
+	 * This is invoked before the record is saved.
+	 * @return boolean whether the record should be saved.
+	 */
+	protected function beforeSave()
+	{
+		if(parent::beforeSave())
+		{
+			if($this->isNewRecord)
+			{
+			}
+				
+			return true;
+		}
+		else
+			return false;
+	}
+
 }
