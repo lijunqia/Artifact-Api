@@ -4,3 +4,10 @@ DROP PRIMARY KEY,
 ADD PRIMARY KEY (`session_id`),
 ADD UNIQUE INDEX (`user_id`, `session_client`) ;
 
+ALTER TABLE `messages`
+ADD COLUMN `message_media`  varchar(10) NULL DEFAULT 'text' AFTER `message_text`;
+
+ALTER TABLE `messages`
+CHANGE COLUMN `message_media` `message_media_type`  varchar(10) CHARACTER SET gbk COLLATE gbk_chinese_ci NULL DEFAULT 'text' AFTER `message_text`,
+ADD COLUMN `message_media`  varchar(50) NULL AFTER `message_text`;
+

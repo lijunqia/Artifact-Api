@@ -8,6 +8,8 @@
  * @property string $user_id
  * @property integer $message_type
  * @property string $message_text
+ * @property string $message_media
+ * @property string $message_media_type
  * @property integer $message_time
  * @property integer $message_is_exp
  * @property integer $message_created
@@ -43,11 +45,12 @@ class TMessage extends ActiveRecord
 		// will receive user inputs.
 		return array(
 			array('message_type, message_time, message_is_exp, message_created, message_updated', 'numerical', 'integerOnly'=>true),
-			array('user_id', 'length', 'max'=>10),
+			array('user_id, message_media_type', 'length', 'max'=>10),
+			array('message_media', 'length', 'max'=>50),
 			array('message_text', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('message_id, user_id, message_type, message_text, message_time, message_is_exp, message_created, message_updated', 'safe', 'on'=>'search'),
+			array('message_id, user_id, message_type, message_text, message_media, message_media_type, message_time, message_is_exp, message_created, message_updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,6 +76,8 @@ class TMessage extends ActiveRecord
 			'user_id' => 'User',
 			'message_type' => 'Message Type',
 			'message_text' => 'Message Text',
+			'message_media' => 'Message Media',
+			'message_media_type' => 'Message Media Type',
 			'message_time' => 'Message Time',
 			'message_is_exp' => 'Message Is Exp',
 			'message_created' => 'Message Created',
@@ -85,6 +90,8 @@ class TMessage extends ActiveRecord
 			'user_id' => Yii::t($source,'user_id'),
 			'message_type' => Yii::t($source,'message_type'),
 			'message_text' => Yii::t($source,'message_text'),
+			'message_media' => Yii::t($source,'message_media'),
+			'message_media_type' => Yii::t($source,'message_media_type'),
 			'message_time' => Yii::t($source,'message_time'),
 			'message_is_exp' => Yii::t($source,'message_is_exp'),
 			'message_created' => Yii::t($source,'message_created'),
@@ -114,6 +121,8 @@ class TMessage extends ActiveRecord
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('message_type',$this->message_type);
 		$criteria->compare('message_text',$this->message_text,true);
+		$criteria->compare('message_media',$this->message_media,true);
+		$criteria->compare('message_media_type',$this->message_media_type,true);
 		$criteria->compare('message_time',$this->message_time);
 		$criteria->compare('message_is_exp',$this->message_is_exp);
 		$criteria->compare('message_created',$this->message_created);

@@ -159,10 +159,21 @@ class MessageController extends Controller
 			$data = LUtil::upfile('image', 'snap');
 			if (isset($data['file']) && is_file(SITE_UPLOAD.$data['file']))
 			{
-
 				$message = new Message();
+				$type = Yii::app()->request->getParam('type');
+				if($type == 'sound')
+				{
+					$text = '<span class="mui-icon mui-icon-mic" style="font-size: 18px;font-weight: bold;"></span><span class="play-state">点击播放</span>';
+					$message->message_media = $data['url'];
+				}
+				else
+				{
+					$text = '<img src="'.$data['url'].'" title="'.$data['title'].'" class="msg-content-image" data-preview-src="" data-preview-group="1">';
+				}
+
+				$message->message_media_type = $type
 				$message->user_id = Yii::app()->user->id;
-				$message->message_text = '<img src="'.$data['url'].'" title="'.$data['title'].'">';
+				$message->message_text = $text;
 				$message->message_time = time();
 
 				if($message->save())
