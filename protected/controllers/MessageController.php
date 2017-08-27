@@ -29,8 +29,8 @@ class MessageController extends Controller
 //				break;
 //		}
 
-
-		$this->response(0,Message::model()->lists($params));
+		$data = Message::model()->lists($params);
+		$this->response(0,array_reverse($data));
 	}
 
     public function actionList()
