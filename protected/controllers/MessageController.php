@@ -30,7 +30,9 @@ class MessageController extends Controller
 //		}
 
 		$data = Message::model()->lists($params);
-		$this->response(0,array_reverse($data));
+		if(!$minid)
+			$data = array_reverse($data);
+		$this->response(0,$data);
 	}
 
     public function actionList()
