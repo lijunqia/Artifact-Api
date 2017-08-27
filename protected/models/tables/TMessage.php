@@ -46,7 +46,7 @@ class TMessage extends ActiveRecord
 		return array(
 			array('message_type, message_time, message_is_exp, message_created, message_updated', 'numerical', 'integerOnly'=>true),
 			array('user_id, message_media_type', 'length', 'max'=>10),
-			array('message_media', 'length', 'max'=>50),
+			array('message_media', 'length', 'max'=>100),
 			array('message_text', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
