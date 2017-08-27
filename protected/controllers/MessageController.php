@@ -8,7 +8,7 @@ class MessageController extends Controller
 		$params = array(
 			'other' => array(
 				'page' => intval(Yii::app()->request->getParam('page',0)),
-				'size' => intval(Yii::app()->request->getParam('size',100)),
+				'size' => intval(Yii::app()->request->getParam('size',20)),
 				'order' => Yii::app()->request->getParam('order','message_id'),
 			),
             'message_type'=>intval(Yii::app()->request->getParam('type',0)),
@@ -154,12 +154,24 @@ class MessageController extends Controller
 	 */
 	public function actionUploader()
 	{
-		Yii::log(json_encode($_FILES));
 		//原版方式上传
 		if (isset($_FILES) && !empty($_FILES)) {
 			$data = LUtil::upfile('image', 'snap');
 			if (isset($data['file']) && is_file(SITE_UPLOAD.$data['file']))
-				$this->response(0,array('url'=>Yii::app()->request->hostInfo . Yii::app()->params->upload.$data['url']));
+			{
+
+				$message = new Message();
+				$message->user_id = Yii::app()->user->id;
+				$message->message_text = '<img src="'.Yii::app()->request->hostInfo . Yii::app()->params->upload.$data['url'].'" title="'.$data['title'].'">';
+				$message->message_time = time();
+
+				if($message->save())
+				{
+					$this->response(0,$message->attr());
+				}
+				else
+					$this->response(1001);
+			}
 
 		}
 
