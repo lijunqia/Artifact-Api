@@ -90,7 +90,7 @@ class LUtil
 
             $data['dir']    		= SITE_UPLOAD. $path ;   //重新赋值
 			self::mkdirs($data['dir']);
-            $data['url']    		= Yii::app()->request->getHostInfo().'/upload/'. $path . $filename;      //重新赋值
+            $data['url']    		= Yii::app()->request->hostInfo . Yii::app()->params->upload. $path . $filename;      //重新赋值
             $data['file']   		= $path .$filename ;               //文件名称
             $data['title']       	= $tmpFile->name;                       //文件标题        
             $data['type']   		= $tmpFile->type;                       //文件类型  

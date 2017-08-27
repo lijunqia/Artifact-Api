@@ -146,4 +146,23 @@ class MessageController extends Controller
 
 		$this->response(1001);
 	}
+	/**
+	 * APP
+	 * @param string $appkey 系统分配应用KEY
+	 * @param string $token 用户登录后系统分配的token
+	 * @param string $avator 头像
+	 */
+	public function actionUploader()
+	{
+		Yii::log(json_encode($_FILES));
+		//原版方式上传
+		if (isset($_FILES) && !empty($_FILES)) {
+			$data = LUtil::upfile('image', 'snap');
+			if (isset($data['file']) && is_file(SITE_UPLOAD.$data['file']))
+				$this->response(0,array('url'=>Yii::app()->request->hostInfo . Yii::app()->params->upload.$data['url']));
+
+		}
+
+		$this->response(1001);
+	}
 }
