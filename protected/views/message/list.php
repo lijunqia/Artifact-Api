@@ -5,6 +5,7 @@
 $this->pageTitle = '聊天信息';
 
 ?>
+<link href="/css/mui.min.css" rel="stylesheet" />
 <style>
     *, *:before, *:after {
         box-sizing: border-box;
