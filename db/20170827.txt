@@ -11,3 +11,7 @@ ALTER TABLE `messages`
 CHANGE COLUMN `message_media` `message_media_type`  varchar(10) CHARACTER SET gbk COLLATE gbk_chinese_ci NULL DEFAULT 'text' AFTER `message_text`,
 ADD COLUMN `message_media`  varchar(50) NULL AFTER `message_text`;
 
+ALTER TABLE `chats`
+ADD COLUMN `chat_media`  varchar(100) NULL AFTER `chat_text`,
+ADD COLUMN `chat_media_type`  varchar(10) NULL AFTER `chat_media`;
+

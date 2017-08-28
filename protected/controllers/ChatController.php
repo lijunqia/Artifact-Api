@@ -164,4 +164,48 @@ class ChatController extends Controller
             $this->response(1010);
     }
 
+	/**
+	 * APP
+	 * @param string $appkey 系统分配应用KEY
+	 * @param string $token 用户登录后系统分配的token
+	 * @param string $avator 头像
+	 */
+	public function actionUploader()
+	{
+		//原版方式上传
+		if (isset($_FILES) && !empty($_FILES)) {
+			$type = Yii::app()->request->getParam('type');
+			$to_user_id = Yii::app()->request->getParam('to',0);
+			$data = LUtil::upfile('image', $type == 'sound'?'sound':'gallery');
+			if (isset($data['file']))
+			{
+				$chat = new Chat();
+				if($type == 'sound')
+				{
+					$text = '<span class="mui-icon mui-icon-mic" style="font-size: 18px;font-weight: bold;"></span><span class="play-state" url="'.base64_encode($data['url']).'">点击播放</span>';
+					$chat->chat_media = $data['url'];
+				}
+				else
+				{
+					$text = '<img src="'.$data['url'].'" title="'.$data['title'].'" class="msg-content-image" data-preview-src="" data-preview-group="1">';
+				}
+
+				$chat->chat_media_type = $type;
+				$chat->user_id = Yii::app()->user->id;
+				$chat->chat_user_id = $to_user_id;//接收用户
+				$chat->chat_text = $text;
+
+
+				if($chat->save())
+				{
+					$this->response(0,$chat->attr());
+				}
+				else
+					$this->response(1001);
+			}
+
+		}
+
+		$this->response(1001);
+	}
 }

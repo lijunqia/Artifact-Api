@@ -183,7 +183,7 @@ class MessageController extends Controller
 					$this->response(0,$message->attr());
 				}
 				else
-					$this->response(1002);
+					$this->response(1001);
 			}
 
 		}
