@@ -7,7 +7,9 @@ class SiteController extends Controller
 {
 	public function actionVoice()
 	{
-		$filename = '';
+		$filename = Yii::app()->request->getParam('url','');
+		if(!$filename)exit();
+		$filename = base64_decode($filename);
 		$data = file_get_contents($filename);
 		echo base64_encode($data);
 	}
