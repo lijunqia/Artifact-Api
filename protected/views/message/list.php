@@ -126,7 +126,20 @@ $this->pageTitle = '聊天信息';
 <div id="syncservicecount" style="display: none">0</div>
 <div id="syncserviceform" style="display: none">0</div>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script>
+<script src="/js/voice.js"></script>
+<script type="text/javascript">
+    RongIMLib.RongIMVoice.init();
+    $('.play-state').on('click', function(){
+        var url = $(this).attr('url');
+        if(!url || url == 'undefined')return false;
+        $.post("/site/voice", { url: url}, function(data){
+            if(data)
+                RongIMLib.RongIMVoice.play(data);
+         });
+        //RongIMLib.RongIMVoice.stop();
+    });
+
+
     window.onerror=function(){return true;}
     var maxid = <?=$maxid;?>;
     var maxchatid = 0;

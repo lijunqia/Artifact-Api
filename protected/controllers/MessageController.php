@@ -165,7 +165,7 @@ class MessageController extends Controller
 				$message = new Message();
 				if($type == 'sound')
 				{
-					$text = '<span class="mui-icon mui-icon-mic" style="font-size: 18px;font-weight: bold;"></span><span class="play-state">点击播放</span>';
+					$text = '<span class="mui-icon mui-icon-mic" style="font-size: 18px;font-weight: bold;"></span><span class="play-state" url="'.base64_encode($data['url']).'">点击播放</span>';
 					$message->message_media = $data['url'];
 				}
 				else

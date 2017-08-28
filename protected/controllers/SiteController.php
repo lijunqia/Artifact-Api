@@ -5,6 +5,12 @@
  */
 class SiteController extends Controller
 {
+	public function actionVoice()
+	{
+		$filename = '';
+		$data = file_get_contents($filename);
+		echo base64_encode($data);
+	}
 	public function actionDown()
 	{
 		$this->render('down');
