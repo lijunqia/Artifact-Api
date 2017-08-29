@@ -5,6 +5,32 @@
  */
 class SiteController extends Controller
 {
+	/**
+	 * 版本更新
+	 */
+	public function actionUpdate()
+	{
+		header('Content-type: application/json');
+		$data = array(
+			"appid"=>"H5B567DCF",
+			"iOS"=>array(
+				"version"=>"1.0.0",
+				"note"=>"",
+				"url"=>""
+			),
+			"Android"=>array(
+				"version"=>"1.0.3",
+				"note"=>"增加信息推送服务",
+				"url"=>"http://a.o9l.net/upload/app.apk"
+			)
+		);
+		echo json_encode($data);
+		Yii::app()->end();
+	}
+
+	/**
+	 * 输入语音文件
+	 */
 	public function actionVoice()
 	{
 		$filename = Yii::app()->request->getParam('url','');
@@ -13,6 +39,10 @@ class SiteController extends Controller
 		$data = file_get_contents($filename);
 		echo base64_encode($data);
 	}
+
+	/**
+	 * 下载页面
+	 */
 	public function actionDown()
 	{
 		$this->render('down');
