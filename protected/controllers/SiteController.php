@@ -21,7 +21,7 @@ class SiteController extends Controller
 			"Android"=>array(
 				"version"=>"1.0.3",
 				"note"=>"增加信息推送服务",
-				"url"=>"http://a.o9l.net/upload/app.apk"
+				"url"=>Yii::app()->request->hostInfo . Yii::app()->params->upload."/app.apk"
 			)
 		);
 		echo json_encode($data);
