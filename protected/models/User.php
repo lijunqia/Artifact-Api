@@ -151,7 +151,7 @@ class User extends TUser
 		$attr['user_created'] = date('Y-m-d H:i:s',$attr['user_created']);
 		$attr['user_expire'] = date('Y-m-d H:i:s',$attr['user_expire']);
 		$attr['user_last_time'] = date('Y-m-d H:i:s',$attr['user_last_time']);
-		$attr['role'] = Role::model()->findByPk($this->role_id);
+		$attr['role'] = Role::model()->findByPk($this->role_id)->attr();
 		return $attr;
 	}
 
