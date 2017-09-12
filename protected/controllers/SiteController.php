@@ -19,8 +19,8 @@ class SiteController extends Controller
 				"url"=>""
 			),
 			"Android"=>array(
-				"version"=>"1.0.5",
-				"note"=>"优化登录设置",
+				"version"=>"1.0.6",
+				"note"=>"优化图片上传",
 				"url"=>Yii::app()->request->hostInfo . Yii::app()->params->upload."/app.apk"
 			)
 		);
