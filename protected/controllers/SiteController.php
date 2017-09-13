@@ -11,19 +11,25 @@ class SiteController extends Controller
 	public function actionUpdate()
 	{
 		header('Content-type: application/json');
-		$data = array(
-			"appid"=>"H5B567DCF",
-			"iOS"=>array(
-				"version"=>"1.0.0",
-				"note"=>"",
-				"url"=>""
-			),
-			"Android"=>array(
-				"version"=>"1.0.6",
-				"note"=>"优化图片上传",
-				"url"=>Yii::app()->request->hostInfo . Yii::app()->params->upload."/app.apk"
-			)
-		);
+		$appid = Yii::app()->request->getParam('appid','');
+		$data = array();
+		if($appid)
+		{
+			$app = App::model()->findByPk($appid);
+			$data = array(
+				"appid"=>$app['app_id'],
+				"iOS"=>array(
+					"version"=>$app['app_ios_version'],
+					"note"=>$app['app_ios_note'],
+					"url"=>$app['app_ios_url']
+				),
+				"Android"=>array(
+					"version"=>$app['app_android_version'],
+					"note"=>$app['app_android_note'],
+					"url"=>$app['app_android_url']
+				)
+			);
+		}
 		echo json_encode($data);
 		Yii::app()->end();
 	}
