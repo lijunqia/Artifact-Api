@@ -30,6 +30,22 @@ class SiteController extends Controller
 				)
 			);
 		}
+		else{
+			$data = array(
+				"appid"=>"H5B567DCF",
+				"iOS"=>array(
+					"version"=>"1.0.0",
+					"note"=>"",
+					"url"=>""
+				),
+				"Android"=>array(
+					"version"=>"1.0.7",
+					"note"=>"优化图片上传",
+					"url"=>Yii::app()->request->hostInfo . Yii::app()->params->upload."/app.apk"
+				)
+			);
+
+		}
 		echo json_encode($data);
 		Yii::app()->end();
 	}
