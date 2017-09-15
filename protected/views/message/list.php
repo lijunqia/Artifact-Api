@@ -135,8 +135,14 @@ $this->pageTitle = '聊天信息';
     var maxchatid = 0;
     var msg = '';
     var msg_chat = '';
+	var ani=false;
     function get_message()
     {
+		if(!ani)
+		{
+			ani=true;
+			$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
+		}
 //        window.status="";
         $.getJSON("/message/index?token=<?=Yii::app()->request->getParam('token','')?>&type=<?=Yii::app()->request->getParam('type',0)?>&min="+maxid,function(result){
 
@@ -155,7 +161,8 @@ $this->pageTitle = '聊天信息';
                     }
                     html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><div class="name">' + obj.user.user_name + '</div><span class="text '+(obj.user.role_id<=3?'admin':'')+'">' + obj.message_text + '</span></div></li>';
                     $("#msg").append(html);
-                    $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
+                    $("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
+					console.log('yes')
                     if(obj.user.role_id<=3)
                         sw=true;
                 });
@@ -166,7 +173,7 @@ $this->pageTitle = '聊天信息';
                 var html = '<li><p class="time"><span>' +
                     getDateTime() + '</span></p><div class="main"><img class="avatar" width="30" height="30" src="/images/2.png"><span class="text">登录信息已过期，请退出重新登录</span></div></li>';
                 $("#msg").append(html);
-                $("html, body").animate({scrollTop: $("#buttom").offset().top }, {duration: 100,easing: "swing"});
+                $("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:'fast',duration: 10,easing: "swing"});
                 window.clearInterval(msg);
                 sw=true;
             }
