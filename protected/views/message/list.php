@@ -179,9 +179,6 @@ $this->pageTitle = '聊天信息';
                 sw=true;
             }
 			
-			setTimeout(function(){
-				$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
-			},200);
             if(sw)
             {
 				$("#syncform").html(maxid);
@@ -189,6 +186,9 @@ $this->pageTitle = '聊天信息';
 //                    window.external.showWindow();
 //                window.status=maxid;
             }
+			setTimeout(function(){
+				$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
+			},100);
         });
     }
     function get_chat_message()
@@ -231,7 +231,7 @@ $this->pageTitle = '聊天信息';
 
 		setTimeout(function(){
 			$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
-		},200);
+		},100);
 
         RongIMLib.RongIMVoice.init();
         $('.play-state').on('click', function(){
