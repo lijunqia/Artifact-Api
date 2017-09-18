@@ -98,6 +98,7 @@ $this->pageTitle = '聊天信息';
     }
     .admin{ color: #f1240e !important; font-weight:bolder !important; font-size: 14pt !important;}
 </style>
+<bgsound src="/upload/media/1.mp3" id="bgplay" loop=1>
 <div class="m-message">
     <ul id="msg">
 
@@ -161,7 +162,9 @@ $this->pageTitle = '聊天信息';
                     }
                     html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><div class="name">' + obj.user.user_name + '</div><span class="text '+(obj.user.role_id<=3?'admin':'')+'">' + obj.message_text + '</span></div></li>';
                     $("#msg").append(html);
-                    $("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
+					setTimeout(function(){
+						$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
+					},200);
 					console.log('yes')
                     if(obj.user.role_id<=3)
                         sw=true;
@@ -173,7 +176,9 @@ $this->pageTitle = '聊天信息';
                 var html = '<li><p class="time"><span>' +
                     getDateTime() + '</span></p><div class="main"><img class="avatar" width="30" height="30" src="/images/2.png"><span class="text">登录信息已过期，请退出重新登录</span></div></li>';
                 $("#msg").append(html);
-                $("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:'fast',duration: 10,easing: "swing"});
+				setTimeout(function(){
+					$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:'fast',duration: 10,easing: "swing"});
+				},200);
                 window.clearInterval(msg);
                 sw=true;
             }
@@ -181,6 +186,7 @@ $this->pageTitle = '聊天信息';
             if(sw)
             {
                 $("#syncform").html(maxid);
+					$('#bgplay').src='/upload/media/1.mp3?t='+new Date();
 //                if(typeof (window.external.showServiceWindow) == 'function')
 //                    window.external.showWindow();
 //                window.status=maxid;
@@ -200,6 +206,8 @@ $this->pageTitle = '聊天信息';
 //                window.status=result.items.count;
                 $("#syncservicecount").html(result.items.count);
                 $("#syncserviceform").html(maxchatid);
+                $("#syncform").html(maxid);
+					$('#bgplay').src='/upload/media/1.mp3?t='+new Date();
             }
             else if(result.code == 1004)
             {
