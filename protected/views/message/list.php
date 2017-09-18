@@ -186,7 +186,10 @@ $this->pageTitle = '聊天信息';
             if(sw)
             {
                 $("#syncform").html(maxid);
-					$('#bgplay').src='/upload/media/1.mp3?t='+new Date();
+				$('#bgplay').src='/upload/media/1.mp3';
+				setTimeout(function(){
+					$('#bgplay').src='';
+				},800);
 //                if(typeof (window.external.showServiceWindow) == 'function')
 //                    window.external.showWindow();
 //                window.status=maxid;
@@ -207,7 +210,10 @@ $this->pageTitle = '聊天信息';
                 $("#syncservicecount").html(result.items.count);
                 $("#syncserviceform").html(maxchatid);
                 $("#syncform").html(maxid);
-					$('#bgplay').src='/upload/media/1.mp3?t='+new Date();
+				$('#bgplay').src='/upload/media/1.mp3';
+				setTimeout(function(){
+					$('#bgplay').src='';
+				},800);
             }
             else if(result.code == 1004)
             {
