@@ -98,7 +98,7 @@ $this->pageTitle = '聊天信息';
     }
     .admin{ color: #f1240e !important; font-weight:bolder !important; font-size: 14pt !important;}
 </style>
-<bgsound src="" id="bgplay" loop=1>
+
 <div class="m-message">
     <ul id="msg">
 
@@ -124,9 +124,9 @@ $this->pageTitle = '聊天信息';
     </ul>
 </div>
 <a id="buttom"></a>
-a<div id="syncform" style="display: ">0</div>
-b<div id="syncservicecount" style="display: ">0</div>
-c<div id="syncserviceform" style="display: ">0</div>
+<div id="syncform" style="display:none ">0</div>
+<div id="syncservicecount" style="display:none ">0</div>
+<div id="syncserviceform" style="display:none ">0</div>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="/js/voice.js"></script>
 <script type="text/javascript">
@@ -151,6 +151,9 @@ c<div id="syncserviceform" style="display: ">0</div>
             if(result.code == 0 && result.items.length>0) {
                 $.each(result.items, function (idx, obj) {
                     var  img='2.png';
+					var rid = parseInt(obj.user.role_id);
+                    if(rid<=3)
+                        sw=true;
                     if(maxid < obj.message_id)
                         maxid = obj.message_id;
                     var html = '<li><p class="time"><span>' +
@@ -160,15 +163,11 @@ c<div id="syncserviceform" style="display: ">0</div>
                         html += 'self';
                         img='1.jpg';
                     }
-                    html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><div class="name">' + obj.user.user_name + '</div><span class="text '+(obj.user.role_id<=3?'admin':'')+'">' + obj.message_text + '</span></div></li>';
+                    html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><div class="name">' + obj.user.user_name + '</div><span class="text '+(rid<=3?'admin':'')+'">' + obj.message_text + '</span></div></li>';
                     $("#msg").append(html);
-					setTimeout(function(){
-						$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
-					},200);
 					console.log('yes')
-                    if(obj.user.role_id<=3)
-                        sw=true;
                 });
+
 
             }
             else if(result.code == 1004)
@@ -176,20 +175,16 @@ c<div id="syncserviceform" style="display: ">0</div>
                 var html = '<li><p class="time"><span>' +
                     getDateTime() + '</span></p><div class="main"><img class="avatar" width="30" height="30" src="/images/2.png"><span class="text">登录信息已过期，请退出重新登录</span></div></li>';
                 $("#msg").append(html);
-				setTimeout(function(){
-					$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:'fast',duration: 10,easing: "swing"});
-				},200);
                 window.clearInterval(msg);
                 sw=true;
             }
-
+			
+			setTimeout(function(){
+				$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
+			},200);
             if(sw)
             {
 				$("#syncform").html(maxid);
-				$('#bgplay').src='/upload/media/1.mp3';
-				setTimeout(function(){
-					$('#bgplay').src='';
-				},800);
 //                if(typeof (window.external.showServiceWindow) == 'function')
 //                    window.external.showWindow();
 //                window.status=maxid;
@@ -217,14 +212,6 @@ c<div id="syncserviceform" style="display: ">0</div>
             {
                 window.clearInterval(msg_chat);
             }
-			if(sw)
-			{
-				
-				$('#bgplay').src='/upload/media/1.mp3';
-				setTimeout(function(){
-					$('#bgplay').src='';
-				},800);
-			}
         });
     }
     //yyyy-MM-dd HH:mm:SS
@@ -240,8 +227,11 @@ c<div id="syncserviceform" style="display: ">0</div>
     }
     $(document).ready(function(){
         msg = setInterval('get_message()',3000);
-        msg_chat = setInterval('get_chat_message()',6000);
+        msg_chat = setInterval('get_chat_message()',10000);
 
+		setTimeout(function(){
+			$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
+		},200);
 
         RongIMLib.RongIMVoice.init();
         $('.play-state').on('click', function(){
