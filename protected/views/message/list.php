@@ -98,7 +98,7 @@ $this->pageTitle = '聊天信息';
     }
     .admin{ color: #f1240e !important; font-weight:bolder !important; font-size: 14pt !important;}
 </style>
-<bgsound src="/upload/media/1.mp3" id="bgplay" loop=1>
+<bgsound src="" id="bgplay" loop=1>
 <div class="m-message">
     <ul id="msg">
 
@@ -124,9 +124,9 @@ $this->pageTitle = '聊天信息';
     </ul>
 </div>
 <a id="buttom"></a>
-<div id="syncform" style="display: none">0</div>
-<div id="syncservicecount" style="display: none">0</div>
-<div id="syncserviceform" style="display: none">0</div>
+a<div id="syncform" style="display: ">0</div>
+b<div id="syncservicecount" style="display: ">0</div>
+c<div id="syncserviceform" style="display: ">0</div>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="/js/voice.js"></script>
 <script type="text/javascript">
@@ -185,7 +185,7 @@ $this->pageTitle = '聊天信息';
 
             if(sw)
             {
-                $("#syncform").html(maxid);
+				$("#syncform").html(maxid);
 				$('#bgplay').src='/upload/media/1.mp3';
 				setTimeout(function(){
 					$('#bgplay').src='';
@@ -203,6 +203,8 @@ $this->pageTitle = '聊天信息';
 
             var sw = false;
             if(result.code == 0 ) {
+				if(maxchatid>0)
+					sw=true;
                 maxchatid = result.items.id;
 //                if(typeof (window.external.showServiceWindow) == 'function')
 //                    window.external.showServiceWindow(result.items.count);
@@ -210,15 +212,19 @@ $this->pageTitle = '聊天信息';
                 $("#syncservicecount").html(result.items.count);
                 $("#syncserviceform").html(maxchatid);
                 $("#syncform").html(maxid);
-				$('#bgplay').src='/upload/media/1.mp3';
-				setTimeout(function(){
-					$('#bgplay').src='';
-				},800);
             }
             else if(result.code == 1004)
             {
                 window.clearInterval(msg_chat);
             }
+			if(sw)
+			{
+				
+				$('#bgplay').src='/upload/media/1.mp3';
+				setTimeout(function(){
+					$('#bgplay').src='';
+				},800);
+			}
         });
     }
     //yyyy-MM-dd HH:mm:SS
