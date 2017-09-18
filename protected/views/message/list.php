@@ -165,7 +165,6 @@ $this->pageTitle = '聊天信息';
                     }
                     html += '"><img class="avatar" width="30" height="30" src="/images/'+img+'"><div class="name">' + obj.user.user_name + '</div><span class="text '+(rid<=3?'admin':'')+'">' + obj.message_text + '</span></div></li>';
                     $("#msg").append(html);
-					console.log('yes')
                 });
 
 
@@ -188,7 +187,7 @@ $this->pageTitle = '聊天信息';
             }
 			setTimeout(function(){
 				$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
-			},100);
+			},10);
         });
     }
     function get_chat_message()
