@@ -181,13 +181,13 @@ $this->pageTitle = '聊天信息';
             if(sw)
             {
 				$("#syncform").html(maxid);
+                setTimeout(function(){
+                    $("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
+                },10);
 //                if(typeof (window.external.showServiceWindow) == 'function')
 //                    window.external.showWindow();
 //                window.status=maxid;
             }
-			setTimeout(function(){
-				$("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
-			},10);
         });
     }
     function get_chat_message()
