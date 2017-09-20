@@ -167,6 +167,9 @@ $this->pageTitle = '聊天信息';
                     $("#msg").append(html);
                 });
 
+                setTimeout(function(){
+                    $("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
+                },10);
 
             }
             else if(result.code == 1004)
@@ -176,14 +179,14 @@ $this->pageTitle = '聊天信息';
                 $("#msg").append(html);
                 window.clearInterval(msg);
                 sw=true;
+                setTimeout(function(){
+                    $("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
+                },10);
             }
 			
             if(sw)
             {
 				$("#syncform").html(maxid);
-                setTimeout(function(){
-                    $("html, body").animate({scrollTop: $("#buttom").offset().top }, {speed:"fast",duration: 10,easing: "swing"});
-                },10);
 //                if(typeof (window.external.showServiceWindow) == 'function')
 //                    window.external.showWindow();
 //                window.status=maxid;
