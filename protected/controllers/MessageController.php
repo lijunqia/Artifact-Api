@@ -42,7 +42,7 @@ class MessageController extends Controller
             'other' => array(
                 'page' => intval(Yii::app()->request->getParam('page',0)),
                 'size' => intval(Yii::app()->request->getParam('size',100)),
-                'order' => Yii::app()->request->getParam('order','message_id'),
+                'order' => Yii::app()->request->getParam('order','message_id desc'),
             ),
             'message_type'=>array(intval(Yii::app()->request->getParam('type',0))),
             '>'=>array('message_id'=> $minid,'message_created'=>time()-604800),
@@ -61,9 +61,12 @@ class MessageController extends Controller
 //                $params['message_is_exp'] = 1;
 //                break;
 //        }
+		$data = Message::model()->lists($params);
+		if(!$minid)
+			$data['data'] = array_reverse($data['data']);
 
         $this->render('list',array(
-            'models'=>Message::model()->lists($params),
+            'models'=>$data,
         ));
     }
 
