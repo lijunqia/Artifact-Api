@@ -180,4 +180,43 @@ class User extends TUser
 		return $models;
 	}
 
+	public function search($params = array())
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('user_id',$this->user_id,true);
+		$criteria->compare('role_id',$this->role_id);
+		$criteria->compare('user_parent_id',$this->user_parent_id);
+		$criteria->compare('user_code',$this->user_code,true);
+		$criteria->compare('user_password',$this->user_password,true);
+////		$criteria->compare('user_avatar',$this->user_avatar,true);
+//		$criteria->compare('user_name',$this->user_name,true);
+//		$criteria->compare('user_mobile',$this->user_mobile,true);
+//		$criteria->compare('user_email',$this->user_email,true);
+////		$criteria->compare('user_reg_time',$this->user_reg_time);
+//		$criteria->compare('user_reg_ip',$this->user_reg_ip,true);
+////		$criteria->compare('user_expire',$this->user_expire);
+////		$criteria->compare('user_last_time',$this->user_last_time);
+//		$criteria->compare('user_last_ip',$this->user_last_ip,true);
+//		$criteria->compare('user_login_num',$this->user_login_num);
+//		$criteria->compare('user_is_delete',$this->user_is_delete);
+		$criteria->compare('user_is_exp',$this->user_is_exp);
+		$criteria->compare('user_is_service',$this->user_is_service);
+//		$criteria->compare('user_remark',$this->user_remark,true);
+//		$criteria->compare('user_created',$this->user_created);
+//		$criteria->compare('user_updated',$this->user_updated);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination'=>array(
+				'pageSize'=>isset($params['size'])?intval($params['size']):10, //代表每页显示30条信息
+			),
+			'sort'=>array(
+				'defaultOrder'=>isset($params['order'])?$params['order']:$this->getTableSchema()->primaryKey.' DESC',
+			),
+		));
+	}
+
 }

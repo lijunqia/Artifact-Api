@@ -32,73 +32,89 @@ class ActiveRecord extends CActiveRecord
     }
 
 
-    /**
-     * 将参数组合为查询条件
-     * @param array $params //查询条件
-     * @param array $other //记录数，排序等
-     * @return CActiveDataProvider
-     */
-    public function provider($params = array(),$other=array())
-    {
-        $criteria=new CDbCriteria(array(
-            'condition' => '',
-        ));
+	/**
+	 * 将参数组合为查询条件
+	 * @params array $params
+	 * @return string
+	 */
+	public function provider($params = array(), $extra='')
+	{
+		$criteria=new CDbCriteria(array(
+			'condition' => ' 1=1 ',
+		));
 
-        $size = 10;
-        $order = $this->getTableSchema()->primaryKey.' DESC';
+		foreach($params as $key => $val)
+		{
+			if($key == 'other')
+				continue;
+			if($key == 'like')
+			{
+				if(is_array($val))
+				{
+					$condition = '';
+					foreach($val as $k=>$q)
+					{
+						if($q)
+						{
+							$q='%'.strtr($q,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%';
+							$condition .= ($condition?' OR ':'').'('.$k." LIKE '".$q."')";
+						}
+					}
+					if($condition)
+					{
+						$criteria->addCondition('(' .$condition . ')');
+					}
+				}
+			}
+			elseif($key == 'between')
+			{
+				if(is_array($val))
+				{
+					foreach($val as $k=>$v)
+					{
+						if(isset($v['min']) && isset($v['max']) )
+							$criteria->addBetweenCondition($k,$v['min'],$v['max']);
+						if(isset($v['start']) && isset($v['end']) && strlen($v['start'])==10 && strlen($v['end'])==10)
+							$criteria->addBetweenCondition($k,$v['start']." 00:00:00",$v['end']." 23:59:59");
+						else
+							$criteria->addBetweenCondition($k,$v['start'],$v['end']);
+					}
+				}
+			}
+			elseif(!empty($val) && is_string($val))
+				$criteria->compare($key,$val);
+			elseif(!empty($val) && is_array($val))
+				$criteria->compare($key,array_filter($val));
+			elseif(is_int($val) && $val>0)
+				$criteria->compare($key,$val);
+		}
 
-        if(isset($other['size']))
-            $size = intval($other['size']);
-        if(isset($other['order']))
-            $order = $other['order'];
+		if($extra)
+			$criteria->condition .= $extra;
 
-        foreach($params as $key => $val)
-        {
-            if($key == 'like')
-            {
-                if(is_array($val))
-                {
-                    foreach($val as $k=>$q)
-                    {
-                        if($q)
-                            $criteria->addSearchCondition($k, $q);
-                    }
-                }
-            }
-            elseif($key == 'between')
-            {
-                if(is_array($val))
-                {
-                    foreach($val as $k=>$v)
-                    {
-                        if(isset($v['min']) && isset($v['max']) && $v['min']>0 && $v['max']>0)
-                            $criteria->addBetweenCondition($k,$v['min'],$v['max']);
+		$size=10;
+		$order = $this->getTableSchema()->primaryKey.' DESC';
+		$group = '';
+		if(isset($params['other']))
+		{
+			$other = $params['other'];
+			if(isset($other['size']))$size = intval($other['size']);
+			if(isset($other['order'])&&!empty($other['order']))$order = $other['order'];
+			if(isset($other['group'])&&!empty($other['group']))$group = $other['group'];
+		}
+		$criteria->order = $order;
+		$criteria->group = $group;
 
-                        if(isset($v['start']) && isset($v['end']))
-                            $criteria->addBetweenCondition($k,$v['start'],$v['end']);
-                    }
-                }
-            }
-            elseif(!empty($val) && is_string($val))
-                $criteria->compare($key,$val);
-            elseif(!empty($val) && is_array($val))
-                $criteria->compare($key,array_filter($val));
-            elseif(is_int($val) && $val>0)
-                $criteria->compare($key,$val);
-        }
+		return new CActiveDataProvider($this, array(
+			'pagination'=>array(
+				'pageSize'=> $size,
+			),
+			'criteria'=>$criteria,
+		));
+	}
 
-        return new CActiveDataProvider($this, array(
-            'pagination'=>array(
-                'pageSize'=> $size,
-            ),
-            'sort'=>array(
-                'defaultOrder'=>$order,
-            ),
-            'criteria'=>$criteria,
-        ));
-    }
 
-    /**
+	/**
 	 * 查询列表
 	 * @params array 查询条件
 	 * @return model
@@ -271,4 +287,8 @@ class ActiveRecord extends CActiveRecord
 	}
 
 
+	public function yesOrNo($val)
+	{
+		return $val?'是':'否';
+	}
 }

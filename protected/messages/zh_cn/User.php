@@ -1,0 +1,23 @@
+<?php
+		return array(
+			'user_id' => 'ID',
+			'role_id' => '角色',
+			'user_parent_id' => '推荐人',
+			'user_code' => '账号',
+			'user_password' => '密码',
+			'user_name' => '姓名',
+			'user_mobile' => '手机',
+			'user_email' => '邮箱',
+			'user_reg_time' => '注册时间',
+			'user_reg_ip' => '注册IP',
+			'user_expire' => '有效期',
+			'user_last_time' => '登录时间',
+			'user_last_ip' => '登录IP',
+			'user_login_num' => '登录次数',
+			'user_is_delete' => '删除?',
+			'user_is_exp' => '体验?',
+			'user_is_service' => '客服?',
+			'user_remark' => '备注',
+			'user_created' => '创建时间',
+			'user_updated' => '更新时间',
+		);

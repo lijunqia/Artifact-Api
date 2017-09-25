@@ -2,6 +2,19 @@
 
 class UserController extends Controller
 {
+	public function actionList()
+	{
+		if(!in_array(Yii::app()->user->getState('user')->role_id ,array(1,3)))
+			$this->response(1000);
+
+		$model = new User('search');
+		if(isset($_GET['User'])){
+			$model->attributes=$_GET['User'];
+		}
+		$this->render('list',array(
+			'model'=>$model,
+		));
+	}
 
 	public function actionIndex()
 	{

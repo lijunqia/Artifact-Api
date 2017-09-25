@@ -8,6 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'IM',
+	'language'=>'zh_cn',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
