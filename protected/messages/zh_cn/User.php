@@ -8,6 +8,7 @@
 			'user_name' => '姓名',
 			'user_mobile' => '手机',
 			'user_email' => '邮箱',
+			'user_avatar' => '头像',
 			'user_reg_time' => '注册时间',
 			'user_reg_ip' => '注册IP',
 			'user_expire' => '有效期',

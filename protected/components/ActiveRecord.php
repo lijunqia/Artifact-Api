@@ -135,7 +135,7 @@ class ActiveRecord extends CActiveRecord
             if(isset($other['group'])&&!empty($other['group']))$group = $other['group'];
             if(isset($other['subtotal'])&&!empty($other['subtotal']))$subtotal = $other['subtotal'];
 		}
-		
+
 		$condition = $this->getCondition($params).$condition;
 
         if($group)

@@ -37,6 +37,7 @@ class MessageController extends Controller
 
     public function actionList()
     {
+    	$this->layout  = 'chat';
         $minid = intval(Yii::app()->request->getParam('min',0));
         $params = array(
             'other' => array(
@@ -110,7 +111,7 @@ class MessageController extends Controller
 
 
 	/**
-	 * 发布信息
+	 * 删除信息
 	 * @param int @id 信息ID
 	 *
 	 * @return mixed json
@@ -193,4 +194,48 @@ class MessageController extends Controller
 
 		$this->response(1001);
 	}
+	public function actionManage()
+	{
+		$params = array(
+			'other' => array(
+				'page' => intval(Yii::app()->request->getParam('page',0)),
+				'size' => intval(Yii::app()->request->getParam('size',100)),
+				'order' => Yii::app()->request->getParam('order','message_time desc'),
+			),
+			'like' => array('message_text'=>Yii::app()->request->getParam('q','')),
+		);
+
+		if(Yii::app()->user->getState('user')->role_id>3)
+			Yii::app()->end();
+
+		$start_time = Yii::app()->request->getParam('min_time');
+		$end_time  = Yii::app()->request->getParam('max_time');
+		if($start_time && $end_time)
+			$params['between'] = array('message_time'=>array('min'=>strtotime($start_time),'max'=>strtotime($end_time.' 23:59:59')));
+		$this->render('manage',array(
+			'models'=>Message::model()->lists($params),
+		));
+	}
+
+	/**
+	 * 删除信息
+	 * @param int @id 信息ID
+	 *
+	 * @return mixed json
+	 */
+	public function actionBatchdel()
+	{
+		if(!in_array(Yii::app()->user->getState('user')->role_id ,array(1,2)))
+			$this->response(1000);
+		$start_time = Yii::app()->request->getParam('start_time');
+		$end_time  = Yii::app()->request->getParam('end_time');
+		if($start_time && $end_time)
+			if(Message::model()->deleteAll('message_time between '.strtotime($start_time).' and '.strtotime($end_time.' 23:59:59')))
+			{
+				$this->response(0);
+			}
+
+			$this->response(1001);
+	}
+
 }

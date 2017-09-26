@@ -1,6 +1,7 @@
 <?php
+/* @var $this MessageController */
 /**
- * var array $models
+ * @var  $models array
  */
 $this->pageTitle = '聊天信息';
 

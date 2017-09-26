@@ -8,6 +8,7 @@ class UserController extends Controller
 			$this->response(1000);
 
 		$model = new User('search');
+		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['User'])){
 			$model->attributes=$_GET['User'];
 		}
@@ -219,4 +220,74 @@ class UserController extends Controller
 	}
 
 
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+
+	/**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionEdit()
+	{
+		$id = Yii::app()->request->getParam('id',0);
+		if($id)
+			$model=$this->loadModel($id);
+		else
+			$model=new User;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['User']))
+		{
+			$model->attributes=$_POST['User'];
+			$model->user_expire = strtotime($model->user_expire);
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->user_id,'token'=>Yii::app()->request->getParam('token')));
+		}
+
+		$model->user_expire = date('Y-m-d',$model->user_expire>0?$model->user_expire:time());
+
+
+		$this->render('edit',array(
+			'model'=>$model,
+		));
+	}
+
+	/**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer $id the ID of the model to be loaded
+	 * @return User the loaded model
+	 * @throws CHttpException
+	 */
+	public function loadModel($id)
+	{
+		$model=User::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
+	/**
+	 * Performs the AJAX validation.
+	 * @param User $model the model to be validated
+	 */
+	protected function performAjaxValidation($model)
+	{
+		if(isset($_POST['ajax']) && $_POST['ajax']==='user-form')
+		{
+			echo CActiveForm::validate($model);
+			Yii::app()->end();
+		}
+	}
 }

@@ -125,7 +125,7 @@ class SiteController extends Controller
 	{
 		if($error=Yii::app()->errorHandler->error)
 		{
-			$this->response($error['code']);
+			$this->response($error);
 		}
 	}
 

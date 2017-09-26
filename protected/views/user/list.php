@@ -1,10 +1,26 @@
 <?php
+/* @var $this UserController */
+/* @var $model User */
+$this->pageTitle = '用户管理';
 
+?>
+
+
+<div id="mainmenu">
+	<?php $this->widget('zii.widgets.CMenu',array(
+		'items'=>array(
+			array('label'=>'用户列表', 'url'=>array('user/list', 'token'=>Yii::app()->request->getParam("token"))),
+			array('label'=>'添加用户', 'url'=>array('user/edit', 'token'=>Yii::app()->request->getParam("token"))),
+		),
+	)); ?>
+</div>
+<?php
 $class_name = get_class($model);
+
 Yii::app()->clientScript->registerScript('re-install-date-picker', "
-    $('#{$class_name}_add_time').addClass('form-control');
     function reinstallDatePicker(id, data) {
-        $('#{$class_name}_add_time').datepicker();
+        $('#{$class_name}_user_expire').datepicker();
+        $('#{$class_name}_user_reg_time').datepicker();
     }
 ");
 $this->widget('zii.widgets.grid.CGridView', array(
@@ -26,19 +42,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	),
 	'afterAjaxUpdate' => 'reinstallDatePicker',
 	'columns'=>array(
+		'user_code',
+		'user_password',
+		'user_name',
+		'user_mobile',
 		array(
 			'name' => 'role_id',
 			'filter' => CHtml::listData(Role::model()->findAll(), "role_id", "role_name"),
 			'value' => 'Role::model()->a($data->role_id)->role_name',
-		),
-		'user_code',
-		'user_password',
-		'user_name',
-		'user_mobile'=>array(
-			'htmlOptions'=>array('style'=>'width:40px;text-align:center;'),
-			'name'=>'user_mobile',
-			'type'=>'raw',
-			'value'=>'CHtml::textField("user_mobile", $data->user_mobile)'
 		),
 		'user_expire'=>array(
 			'name'=>'user_expire',
@@ -98,8 +109,28 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header'=>'操作',
 			'htmlOptions' => array('nowrap'=>'nowrap'),
 			'class'=>'CButtonColumn',
-			'deleteConfirmation'=>"js:'ID为 '+$(this).parent().parent().children(':first-child').text()+' 的记录将被删除，确定删除？'",
+			'deleteConfirmation'=>"js:'账号为 【'+$(this).parent().parent().children(':first-child').text()+'】 的记录将被删除，确定删除？'",
+			'template'=>'{edit} {view} {delete}',
+			'buttons'=>array
+			(
+				'edit' => array
+				(
+					'label'=>'修改',
+					'url'=>'Yii::app()->createUrl("user/edit", array("id"=>$data->user_id,"token"=>Yii::app()->request->getParam("token")))',
+				),
+				'view' => array
+				(
+					'label'=>'查看',
+					'url'=>'Yii::app()->createUrl("user/view", array("id"=>$data->user_id,"token"=>Yii::app()->request->getParam("token")))',
+				),
+				'delete' => array
+				(
+					'label'=>'删除',
+					'url'=>'Yii::app()->createUrl("user/delete", array("id"=>$data->user_id,"token"=>Yii::app()->request->getParam("token")))',
+				),
+			),
 		)
 	)
-));	
+));
+
 ?>

@@ -41,12 +41,19 @@ $this->pageTitle = '在线用户';
 <script>
     function delSession(id)
     {
-        $.getJSON("<?=Yii::app()->createUrl('session/delete',array('token'=>Yii::app()->request->getParam('token','')));?>&id="+id+'&d='+new Date(),function(result){
-            if(result.code==0)
-            {
-                $('#tr_'+id).remove();
+        if(confirm('确定要删除吗？'))
+        {
+            $.getJSON("<?=Yii::app()->createUrl('session/delete',array('token'=>Yii::app()->request->getParam('token','')));?>&id="+id,function(result){
+                if(result.code==0)
+                {
+                    $('#tr_'+id).remove();
 //                window.location.reload();
-            }
-        });
+                }
+                else
+                {
+                    alert('删除失败')
+                }
+            });
+        }
     }
 </script>
