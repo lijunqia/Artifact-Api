@@ -21,8 +21,8 @@ $this->pageTitle = '聊天记录';
 
 
     <div class="row">
-        关键字：<?php echo CHtml::textField('q',Yii::app()->request->getParam("q"));?>
-        时间：<?php
+       <input type="text" name="q" value="<?=Yii::app()->request->getParam("q");?>" placeholder="请输入关键字">
+        <?php
 	    $this->widget('zii.widgets.jui.CJuiDatePicker',array(
 		    'attribute'=>'min_time',
 		    'language'=>'zh_cn',
@@ -35,7 +35,7 @@ $this->pageTitle = '聊天记录';
 			    'dateFormat'=>'yy-mm-dd',
 		    ),
 		    'htmlOptions'=>array(
-			    'value'=>Yii::app()->request->getParam("min_time")
+			    'placeholder'=>'请选择开始时间'
 		    ),
 	    ));
 
@@ -51,6 +51,7 @@ $this->pageTitle = '聊天记录';
 			    'dateFormat'=>'yy-mm-dd',
 		    ),
 		    'htmlOptions'=>array(
+			    'placeholder'=>'请选择结束时间'
 		    ),
 	    ));
         ?>
@@ -68,7 +69,7 @@ $this->pageTitle = '聊天记录';
 
 
     <div class="row">
-        时间：<?php
+       <?php
 		$this->widget('zii.widgets.jui.CJuiDatePicker',array(
 			'attribute'=>'start_time',
 			'language'=>'zh_cn',
@@ -81,6 +82,7 @@ $this->pageTitle = '聊天记录';
 				'dateFormat'=>'yy-mm-dd',
 			),
 			'htmlOptions'=>array(
+				'placeholder'=>'请选择开始时间'
 			),
 		));
 
@@ -96,6 +98,7 @@ $this->pageTitle = '聊天记录';
 				'dateFormat'=>'yy-mm-dd',
 			),
 			'htmlOptions'=>array(
+				'placeholder'=>'请选择结束时间'
 			),
 		));
 		?>
