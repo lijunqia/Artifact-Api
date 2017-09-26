@@ -151,7 +151,7 @@ class User extends TUser
 		$attr['user_created'] = date('Y-m-d H:i:s',$attr['user_created']);
 		$attr['user_expire'] = date('Y-m-d H:i:s',$attr['user_expire']);
 		$attr['user_last_time'] = date('Y-m-d H:i:s',$attr['user_last_time']);
-		$attr['role'] = Role::model()->findByPk($this->role_id)->attr();
+		$attr['role'] = Role::model()->a($this->role_id)->attr();
 		return $attr;
 	}
 
@@ -192,8 +192,8 @@ class User extends TUser
 		$criteria->compare('user_code',$this->user_code,true);
 		$criteria->compare('user_password',$this->user_password,true);
 ////		$criteria->compare('user_avatar',$this->user_avatar,true);
-//		$criteria->compare('user_name',$this->user_name,true);
-//		$criteria->compare('user_mobile',$this->user_mobile,true);
+		$criteria->compare('user_name',$this->user_name,true);
+		$criteria->compare('user_mobile',$this->user_mobile,true);
 //		$criteria->compare('user_email',$this->user_email,true);
 ////		$criteria->compare('user_reg_time',$this->user_reg_time);
 //		$criteria->compare('user_reg_ip',$this->user_reg_ip,true);
@@ -202,11 +202,19 @@ class User extends TUser
 //		$criteria->compare('user_last_ip',$this->user_last_ip,true);
 //		$criteria->compare('user_login_num',$this->user_login_num);
 //		$criteria->compare('user_is_delete',$this->user_is_delete);
-		$criteria->compare('user_is_exp',$this->user_is_exp);
-		$criteria->compare('user_is_service',$this->user_is_service);
+//		$criteria->compare('user_is_exp',$this->user_is_exp);
+//		$criteria->compare('user_is_service',$this->user_is_service);
 //		$criteria->compare('user_remark',$this->user_remark,true);
 //		$criteria->compare('user_created',$this->user_created);
 //		$criteria->compare('user_updated',$this->user_updated);
+		if(is_numeric($this->user_is_exp))
+		$criteria->compare('user_is_exp',$this->user_is_exp?1:0);
+		if(is_numeric($this->user_is_service))
+		$criteria->compare('user_is_service',$this->user_is_service?1:0);
+		if(!empty($this->user_expire) && is_string($this->user_expire))
+			$criteria->addBetweenCondition('user_expire', strtotime($this->user_expire.' 00:00:00'),strtotime($this->user_expire.'23:59:59'));
+		if(!empty($this->user_reg_time) && is_string($this->user_reg_time))
+			$criteria->addBetweenCondition('user_expire', strtotime($this->user_reg_time.' 00:00:00'),strtotime($this->user_reg_time.'23:59:59'));
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
