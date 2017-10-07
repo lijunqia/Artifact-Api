@@ -140,7 +140,7 @@ class SiteController extends Controller
 		$model = User::model()->regist($params);
 		if(is_object($model))
 		{
-			$this->response(0,$model->attr());
+			$this->response(0);
 		}
 		if(is_int($model))
 			$this->response($model);
