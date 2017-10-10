@@ -130,7 +130,7 @@ class SiteController extends Controller
 			'mobile' => Yii::app()->request->getParam('mobile',''),
 			'email' => Yii::app()->request->getParam('email',''),
 			'remark' => Yii::app()->request->getParam('remark',''),
-			'role' => 5,
+			'role' => 4,
 			'expire' => Yii::app()->request->getParam('expire',date('Y-m-d H:i:s',strtotime("+1 month"))),
 		);
 
