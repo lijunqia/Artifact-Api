@@ -98,7 +98,7 @@ $this->pageTitle = '聊天信息';
         font-size: 12px;
     }
     .admin{ color: #f1240e !important; font-weight:bolder !important; font-size: 14pt !important;}
-    .audio{cursor:pointer}
+    .play-state{cursor:pointer;cursor:hand;}
 </style>
 
 <div class="m-message">
@@ -130,6 +130,7 @@ $this->pageTitle = '聊天信息';
 <div id="syncservicecount" style="display:none ">0</div>
 <div id="syncserviceform" style="display:none ">0</div>
 <audio class="audio" src=""></audio>
+<bgsound id='audio_ie' src="" loop=1>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="/js/voice.js"></script>
 <script type="text/javascript">
@@ -249,8 +250,9 @@ $this->pageTitle = '聊天信息';
                 {
                     if(data.indexOf('.wav')!=-1)
                     {
-                        $(".audio").get(0).src=data;
-                        $(".audio").get(0).play();
+                        document.getElementById('audio_ie').src = data;
+//                        $(".audio").get(0).src=data;
+//                        $(".audio").get(0).play();
                     }
                     else
                     {
