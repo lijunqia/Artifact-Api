@@ -58,8 +58,15 @@ class SiteController extends Controller
 		$filename = Yii::app()->request->getParam('url','');
 		if(!$filename)exit();
 		$filename = base64_decode($filename);
-		$data = file_get_contents($filename);
-		echo base64_encode($data);
+        if(strstr($filename,'.wav'))
+        {
+            echo $filename;
+        }
+        else
+        {
+            $data = file_get_contents($filename);
+            echo base64_encode($data);
+        }
 	}
 
 	/**

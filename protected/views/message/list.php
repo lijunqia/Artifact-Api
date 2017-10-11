@@ -128,6 +128,7 @@ $this->pageTitle = '聊天信息';
 <div id="syncform" style="display:none ">0</div>
 <div id="syncservicecount" style="display:none ">0</div>
 <div id="syncserviceform" style="display:none ">0</div>
+<audio class="audio" src=""></audio>
 <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="/js/voice.js"></script>
 <script type="text/javascript">
@@ -239,12 +240,22 @@ $this->pageTitle = '聊天信息';
         RongIMLib.RongIMVoice.init();
         $('.play-state').on('click', function(){
             var url = $(this).attr('url');
-            console.log(url);
+//            console.log(url);
             if(!url || url == 'undefined')return false;
             $.post("/site/voice", { url: url}, function(data){
-                console.log(data);
+//                console.log(data);
                 if(data)
-                    RongIMLib.RongIMVoice.play(data);
+                {
+                    if(data.indexOf('.wav')!=-1)
+                    {
+                        $(".audio").get(0).src=data;
+                        $(".audio").get(0).play();
+                    }
+                    else
+                    {
+                        RongIMLib.RongIMVoice.play(data);
+                    }
+                }
             });
             //RongIMLib.RongIMVoice.stop();
         });
