@@ -98,6 +98,7 @@ $this->pageTitle = '聊天信息';
         font-size: 12px;
     }
     .admin{ color: #f1240e !important; font-weight:bolder !important; font-size: 14pt !important;}
+    .audio{cursor:pointer}
 </style>
 
 <div class="m-message">
