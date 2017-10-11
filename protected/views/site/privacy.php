@@ -6,7 +6,7 @@ $this->pageTitle= '用户隐私策略';
 ?>
 <style type="text/css">
     body {text-align:center}
-    div {width:100%; text-align:left; margin:50px 10px;}
+    div {width:100%; text-align:left; margin:50px auto;}
 	.container{width:100% !important}
 </style>
 <div>
